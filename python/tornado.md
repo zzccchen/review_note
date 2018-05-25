@@ -3,6 +3,7 @@
 **Example: hello world**
 
 ``` python
+# -*- coding: utf-8 -*-
 from tornado.ioloop import IOLoop
 from tornado import gen, web
 
@@ -55,4 +56,22 @@ from tornado.httpserver import HTTPServer
 server = HTTPServer(application)
 server.bind(8080)  # 绑定8080端口
 server.start(4)  # 启动4线程
+```
+
+抓取网页内容
+
+```python
+from tornado.httpclient import AsyncHTTPClient
+
+
+class GetPageHandler(web.RequestHandler):
+
+    @gen.coroutine
+    def get(self):
+        # AsyncHTTPClient 的 fetch 方法返回远端网页的内容
+        client = AsyncHTTPClient()
+        url = 'http://hq.sinajs.cn/list=sz000001'
+        response = yield client.fetch(url, method='GET')
+        self.write(response.body.decode('gbk'))
+        self.finish()
 ```
