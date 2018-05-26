@@ -160,7 +160,7 @@ self.redirect(self.get_argument("next", "/"))
 
 ---
 
-###tornado.escape — 转义和字符串操作
+### tornado.escape — 转义和字符串操作
 
 [原文链接](http://tornado-zh.readthedocs.io/zh/latest/escape.html)
 
@@ -171,3 +171,45 @@ self.redirect(self.get_argument("next", "/"))
 > 通用：`tornado.escape.native_str()`
 > python2：`tornado.escape.utf8()`
 > python3：`tornado.escape.to_unicode()`
+
+---
+
+### 定时任务
+
+**周期定时 PeriodicCallback**
+
+```python
+from tornado import ioloop, gen
+
+
+@gen.coroutine
+def Count():
+    print('1 second has gone.')
+
+
+if __name__ == '__main__':
+    ioloop.PeriodicCallback(Count, 1000).start()  # 1000毫秒
+    ioloop.IOLoop.current().start()
+```
+
+**单次定时 call_at 或 call_later**
+
+*仅执行一次*
+
+```python
+from tornado import ioloop, gen
+import time
+
+
+@gen.coroutine
+def Ring():
+    print('it\'s time to get up.')
+
+
+if __name__ == '__main__':
+    loop = ioloop.IOLoop.current()
+    timestamp = time.time()  # 设定的时间戳
+    loop.call_at(timestamp + 5, Ring)  # 在设定的时间戳后5s执行
+    # loop.call_later(5, Ring)  # 5s后执行
+    loop.start()
+```
