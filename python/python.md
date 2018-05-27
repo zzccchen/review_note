@@ -134,3 +134,14 @@ class Fib(object):
 **但一旦在迭代过程中pop()或者append()元素后前者越界，后者漏值**
 
 ---
+
+# uuid
+
+uuid是128位的全局唯一标识符，通常用32位的一个字符串的形式来表现
+
+```python
+import uuid
+
+
+uuid.uuid1() # 基于MAC地址，时间戳，随机数来生成唯一的uuid，可以保证全球范围内的唯一性
+```
