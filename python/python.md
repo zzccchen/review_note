@@ -1,8 +1,66 @@
-# yield 生成器
+# Python Note
 
-**生成器只能遍历一次**
+## tuple 元组
+
+```python
+len((1, 2, 3))  # 计算元素个数 3
+
+(1, 2, 3) + (4, 5, 6)  # 连接 (1, 2, 3, 4, 5, 6)
+
+('Hi!',) * 4  # 复制 ('Hi!', 'Hi!', 'Hi!', 'Hi!')
+              # 仅元组内为单元素时需注意逗号
+              # 没有逗号将变成 "Hi!Hi!Hi!Hi!"
+```
+
+**元组的比较** 类似于字符串的大小比较，先比较第一个元素，分不出大小的话，再比较下一个元素
+
+元组可像列表一样 **截取** 或者 **迭代**
 
 ---
+
+## for 循环
+
+**不建议在 for 循环中修改列表**
+
+例：`for i in range(5):`
+
+在程序第一次运行到这句的时候，python 会自动去调用 `range(5)` 对象的 `__iter__` 方法，返回一个 range_iterator 对象再由这个 range_iterator 对象不断调用其 `__next__` 方法，直到捕获异常 `StopIteration` 为止完成迭代。换句话说，当执行这个 `for` 语句的时候，迭代次数就已经被 `in` 后面的可迭代对象确定下来了
+
+**但一旦在迭代过程中 `pop()` 或者 `append()` 元素后前者越界，后者漏值**
+
+---
+
+## 转义字符
+
+**`!` 只在fromat中有用**
+
+e.g.
+
+```python
+print('hello, %s' % '123')
+print('hello, {!s}'.format('123'))
+# 只有这两种能输出 hello, 123
+```
+
+### %r 或 !r
+
+`%r` 或 `!r` 用于直接反应对象本体，即调用对象的 `__repr()__` 方法
+
+e.g.
+
+```python
+print('hello, %s' % '123')
+# 输出 hello, 123
+print('hello, {!r}'.format('123'))
+# 输出 hello, '123'
+# 注意 '123' 的引号
+```
+
+---
+
+## yield 生成器
+
+**生成器只能遍历一次**
 
 常规列表推导：`squares = [x**2 for x in range(5)]`
 
@@ -12,9 +70,7 @@ DO: `sum(x ** 2 for x in xrange(4))`
 
 DON'T: `sum([x ** 2 for x in xrange(4)])`
 
----
-
-generator 对象具有 next 方法，在 for 循环中会自动调用 next 方法
+generator 对象具有 `next` 方法，在 `for` 循环中会自动调用 `next` 方法
 
 ``` python
 >>> def func(n):
@@ -30,8 +86,6 @@ generator 对象具有 next 方法，在 for 循环中会自动调用 next 方�
 10
 ```
 
----
-
 用生成器实现斐波那契数列：
 
 ``` python
@@ -45,8 +99,6 @@ def fab(n):
 print([i for i in fab(10)])
 ```
 
----
-
 判断一个函数是否是 generator 函数
 
 ``` python
@@ -55,19 +107,19 @@ print([i for i in fab(10)])
 True
 ```
 
-每次调用 fab 函数都会生成一个新的 generator 实例，各实例互不影响
+每次调用 `fab` 函数都会生成一个新的 generator 实例，各实例互不影响
 
-在一个 generator function 中，如果没有 return，则默认执行至函数完毕，如果在执行过程中 return，则直接抛出 StopIteration 终止迭代
-
-# 迭代器
-
-> 可迭代类：提供 \_\_iter__ 或 \_\_getitem__ 方法的类
->
-> 迭代器类：同时提供 \_\_iter__ 和 \_\_next__ 这两个方法的类
-
-\_\_iter__ 使迭代器对象返回自己，就可以把自身变成可迭代对象，因此就可以像可迭代对象一样，用 for 或 in 方法来处理
+在一个 generator function 中，如果没有 return，则默认执行至函数完毕，如果在执行过程中 return，则直接抛出 `StopIteration` 终止迭代
 
 ---
+
+## 迭代器
+
+> 可迭代类：提供 `__iter__` 或 `__getitem__` 方法的类
+>
+> 迭代器类：同时提供 `__iter__` 和 `__next__` 这两个方法的类
+
+`__iter__` 使迭代器对象返回自己，就可以把自身变成可迭代对象，因此就可以像可迭代对象一样，用 `for` 或 `in` 方法来处理
 
 例：斐波那契数列实现
 
@@ -95,11 +147,9 @@ for i in Fab(10):
     print(i)
 ```
 
----
+迭代器像list那样按照下标取出元素或切片，需要实现 `__getitem__` 方法：
 
-迭代器像list那样按照下标取出元素或切片，需要实现 \_\_getitem__ 方法：
-
-\_\_getitem__ 传入的参数可能是一个 int ，也可能是一个切片对象 slice
+`__getitem__` 传入的参数可能是一个 int ，也可能是一个切片对象 slice
 
 ``` python
 class Fib(object):
@@ -121,34 +171,7 @@ class Fib(object):
             return L
 ```
 
-# for循环
-
----
-
-**不建议在for循环中修改列表**
-
-例：`for i in range(5):`
-
-在程序第一次运行到这句的时候，python会自动去调用 range(5) 对象的 \_\_iter__ 方法，返回一个range_iterator 对象再由这个 range_iterator 对象不断调用其 \_\_next__ 方法，直到捕获异常 StopIteration 为止完成迭代。换句话说，当执行这个for语句的时候，迭代次数就已经被in后面的可迭代对象确定下来了
-
-**但一旦在迭代过程中pop()或者append()元素后前者越界，后者漏值**
-
----
-
-# uuid
-
-uuid是128位的全局唯一标识符，通常用32位的一个字符串的形式来表现
-
-```python
-import uuid
-
-
-uuid.uuid1() # 基于MAC地址，时间戳，随机数来生成唯一的uuid，可以保证全球范围内的唯一性
-```
-
----
-
-# [装饰器]("http://python3-cookbook.readthedocs.io/zh_CN/latest/chapters/p09_meta_programming.html")
+## [装饰器]("http://python3-cookbook.readthedocs.io/zh_CN/latest/chapters/p09_meta_programming.html")
 
 ### 函数装饰器
 
@@ -186,14 +209,14 @@ foo()
 print(foo.__name__)
 ```
 
-logging 函数最终返回的是 wrapper, wrapper 是一个函数对象。@logging 即将 foo 指向 wrapper
+`logging` 函数最终返回的是 `wrapper`，`wrapper` 是一个函数对象。`@logging` 即将 `foo` 指向 `wrapper`
 
-@wraps 装饰器把原函数的元信息拷贝到装饰器里面的 func 函数中。
+`@wraps` 装饰器把原函数的元信息拷贝到装饰器里面的 `func` 函数中。
 使用时需 `from functools import wraps`
 
 ### 类装饰器
 
-使用类装饰器时将自动调用类的 \_\_call__ 方法
+使用类装饰器时将自动调用类的 `__call__` 方法
 
 ```python
 from functools import wraps
@@ -244,7 +267,7 @@ class B:
 @b
 @c
 def foo():
-	pass
+    pass
 ```
 
 等效于
@@ -253,7 +276,7 @@ def foo():
 
 #### \_\_wrapped__ 属性
 
-假设装饰器是通过 @wraps 来实现的，那么可以通过访问 \_\_wrapped__ 属性来访问原始函数
+假设装饰器是通过 `@wraps` 来实现的，那么可以通过访问 `__wrapped__` 属性来访问原始函数
 
 ```python
 >>> @somedecorator
@@ -265,7 +288,7 @@ def foo():
 7
 ```
 
-如果有多个包装器，那么访问 \_\_wrapped__ 属性的行为是不可预知的。特别的，内置的装饰器 @staticmethod 和 @classmethod 就没有遵循这个约定 (它们把原始函数存储在属性 \_\_func__ 中)。
+如果有多个包装器，那么访问 `__wrapped__` 属性的行为是不可预知的。特别的，内置的装饰器 `@staticmethod` 和 `@classmethod` 就没有遵循这个约定 (它们把原始函数存储在属性 `__func__` 中)。
 
 #### 接受参数的装饰器间的等效：
 
@@ -283,7 +306,34 @@ def func(a, b):
 func = decorator(x, y, z)(func)
 ```
 
-# 内置函数
+---
+
+## 内置函数
+
+### \_\_repr__ 与 \_\_str__
+
+重构 `__repr__` 方法后，不管直接输出对象还是通过 `print` 打印的信息都按 `__repr__` 方法中定义的格式进行显示了
+而重构 `__str__` 方法后，直接输出对象时并没有按我们 `__str__` 方法中定义的格式进行输出，输出：`<object at 0x7fa91c314e50>`，而用 `print` 输出的信息按 `__str__` 方法中定义的格式进行显示了
+
+#### repr() 函数
+
+```repr(object)```
+
+`repr` 函数将对象转化为供解释器读取的形式，返回一个对象的 string 格式
+
+### uuid
+
+uuid 是128位的全局唯一标识符，通常用32位的一个字符串的形式来表现
+
+```python
+
+import uuid
+
+uuid.uuid1() # 基于MAC地址，时间戳，随机数来生成唯一的uuid，可以保证全球范围内的唯一性
+
+```
+
+---
 
 ### setattr / getattr 函数
 
@@ -294,9 +344,10 @@ func = decorator(x, y, z)(func)
 **getattr 用于返回一个对象属性值**
 
 `getattr(object, name[, default])`
-*default -- 默认返回值，如果不提供该参数，在没有对应属性时，将触发 AttributeError*
+*default -- 默认返回值，如果不提供该参数，在没有对应属性时，将触发 `AttributeError`*
 
 ```python
+
 >>> class A(object):
 ...     bar = 1
 ...
@@ -313,4 +364,181 @@ func = decorator(x, y, z)(func)
 5
 >>> getattr(a, 'bar2', 3)  # 获取属性 bar2 值
 3
+
 ```
+
+---
+
+### deque 双向队列
+
+*线程安全*
+
+```python
+
+from collections import deque
+
+d = deque()  # 创建双向队列
+
+d1 = deque(maxlen=5)  # 创建固定大小5的双向队列，当新的元素加入并且这个队列已满的时候，最老的元素会自动被移除掉
+
+d.append(1)  # 往右边添加一个元素，如：[2] -> [2, 1]
+
+d.appendleft(2)  # 往左边添加一个元素，如：[1] -> [2, 1]
+
+d.clear()  # 清空队列
+
+new_d = d.copy()  # 浅拷贝
+
+d.count(1)  # 返回指定元素的出现次数
+
+d.extend([3, 4, 5])  # 从队列右边扩展一个列表的元素
+
+d.extendleft([3, 4, 5])  # 从队列左边扩展一个列表的元素
+
+print(d.index(1))  # 查找某个元素的索引位置
+
+print(d.index('c', 0, 3))  # 指定查找区间
+
+d.insert(2, 'z')  # 在指定位置2插入元素'z'
+
+d.pop()  # 弹出最右边一个元素
+
+d.popleft()  # 弹出最左边一个元素
+
+d.remove('c')  # 删除指定元素
+
+d.reverse()  # 队列反转
+
+d.rotate(2)  # 把右边元素放到左边，默认1次
+             # 如：['a','b','c','d','e'] -> ['d', 'e', 'a', 'b', 'c']
+
+```
+
+---
+
+### heapq 堆
+
+```python
+
+import heapq
+
+heapq.heappush(heap,item)  # heap 为定义堆，item 为增加的元素
+
+heapq.heapify(list)  # 将列表转换为堆
+
+heapq.heappop(heap)  # 弹出最小元素
+
+heapq.heapreplace(heap, item)   # 弹出最小元素，添加新的元素
+
+heapq.heappushpop(heap, item)   # 添加元素与堆的第一个元素（即最小元素）对比，
+                                # 如果大于则弹出最小元素，然后添加新的元素值，否则不更改堆
+                                # 此函数返回值为两元素中的较小元素
+
+heapq.merge(...)  # 将多个堆合并
+
+heapq.nlargest(n, heap)  # 查询堆中的最大 n 个元素
+
+heapq.nsmallest(n, heap)  # 查询堆中的最小 n 个元素
+
+```
+
+---
+
+## 作用域
+
+### LEGB 原则
+
+* 说明：
+
+    > L-Local(function): 函数内的名字空间
+    >
+    > E-Enclosing function locals: 外部嵌套函数的名字空间（例如 closure）
+    >
+    > G-Global(module): 函数定义所在模块（文件）的全局名字空间
+    >
+    > B-Builtin(Python)： Python 内置模块的名字空间
+
+* 当在函数中使用未认证的变量名时，Python 依次搜索4个作用域：
+
+    > 本地作用域(L)
+    >
+    > 上一层结构中 def 或 lambda 的本地作用域(E)
+    >
+    > 全局作用域(G)
+    >
+    > 内置作用域(B)
+
+    并且在第一处能够找到这个变量名的地方停下来。如果变量名在这次搜索中没有找到，会报错
+
+* **当在函数中给一个变量名赋值时（而不是在一个表达式中对其进行引用），Python 总是创建或改变本地作用域的变量名，除非它已经在那个函数中声明为全局变量**
+
+* 当在函数之外给一个变量名赋值时（也就是说，在一个模块文件顶层，或者是在交互提示模式下），本地作用域和全局作用域是相同的
+
+### global 语句
+
+* 全局变量是位于模块文件内部的顶层的变量名
+
+* 全局变量如果是在函数内被 **赋值** 的话，**必须** 经过声明
+
+* 全局变量如果是在函数内被 **引用** 的话，**不必** 经过声明
+
+> 函数 `func` 内 `global x` 语句用于告诉 Python 在 `func` 的本地作用域内，要使用全局作用域中的变量 x，因此 Python 不会再在本地作用域中新建一个变量，而是直接引用全局作用域中的变量 x
+
+Example_1:
+
+```python
+
+x = 99
+def func():
+    x = 88
+func()
+print(x)  # 输出 99
+
+```
+
+Example_2:
+
+```python
+
+x = 99
+def func():
+    global x = 88
+func()
+print(x)  # 输出 88
+
+```
+
+### nonlocal 语句
+
+> nonlocal 的作用与关键字 global 类似，关键字可以在一个嵌套的函数中修改嵌套作用域中的变量
+
+Example_3:
+
+```python
+
+def func():
+    count = 1
+    def foo():
+        count = 12
+    foo()
+    print(count)
+func()  # 输出1
+
+```
+
+Example_4:
+
+```python
+
+def func():
+    count = 1
+    def foo():
+        nonlocal count
+        count = 12
+    foo()
+    print(count)
+func()  # 输出12
+
+```
+
+---
