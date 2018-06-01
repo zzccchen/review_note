@@ -1,5 +1,17 @@
 # Python Note
 
+## 集合
+
+```python
+a = t | s  # t 和 s的并集
+
+b = t & s  # t 和 s的交集
+
+c = t – s  # 求差集（项在t中，但不在s中）
+
+d = t ^ s  # 对称差集（项在t或s中，但不会同时出现在二者中）
+```
+
 ## tuple 元组
 
 ```python
@@ -309,6 +321,67 @@ func = decorator(x, y, z)(func)
 ---
 
 ## 内置函数
+
+### min 与 max
+
+关于 `key` 属性的使用
+
+```python
+a = [-9, -8, 1, 3, -4, 6]
+tmp = max(a, key=lambda x: abs(x))
+# 或 tmp = max(a, key=abs)
+print(tmp)  # 输出 -9
+            # 即判断是按 key 中的 abs(x) 但是返回的是原对象
+
+min(1, 2, '3')  # 数值和字符串不能取最小值
+min(1, 2, '3', key=int)  # 指定key为转换函数后，可以取最小值
+```
+
+空可迭代对象不能取最小值，需指定 default 参数为默认值，且默认值必须使用命名参数进行传参，否则将被认为是一个比较的元素
+
+```python
+min(())  # 报错 ValueError: min() arg is an empty sequence
+min((), default=0)  # 输出 0
+min((), 0)  # 报错 TypeError: unorderable types: int() < tuple()
+```
+
+### defaultdict
+
+`defaultdict` 类的初始化函数接受一个类型作为参数，当所访问的键不存在的时候，可以实例化一个值作为默认值
+
+这种形式的默认值只有在通过 `dict[key]` 或者 `dict.__getitem__(key)` 访问的时候才有效
+
+```python
+from collections import defaultdict
+
+d1 = defaultdict(int)  # 默认为 0
+d2 = defaultdict(list)  # 默认为 []
+d3 = defaultdict(lambda: "xxx")  # 默认为 'xxx'
+```
+
+### OrderedDict
+
+python 中的字典是无序的，因为它是按照 hash 来存储的，`OrderedDict` 实现了对字典对象中元素 **按插入顺序排序**，大小也是普通字典的两倍，且两个 `OrderedDict` 的字典对象仅顺序不同也会被认为是两个不同对象
+
+除以下方法，其余方法与 dict 类似
+
+```python
+from collections import OrderedDict
+
+
+dd = {'banana': 3, 'apple': 4, 'pear': 1, 'orange': 2}
+
+# 按key排序
+kd = OrderedDict(sorted(dd.items(), key=lambda t: t[0]))
+print(kd)
+
+# 按照value排序
+vd = OrderedDict(sorted(dd.items(), key=lambda t: t[1]))
+print(vd)
+
+# move_to_end （指定一个key，把对应的key-value移到最后）
+vd.move_to_end('banana')
+```
 
 ### \_\_repr__ 与 \_\_str__
 

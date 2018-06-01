@@ -136,3 +136,113 @@ q = PriorityQueue()
 q.push(Item('foo'), 1)
 q.pop()
 ```
+
+### 1.6 字典中的键映射多个值
+
+**将键映射到列表 `list` 或集合 `set` 中**
+
+可以使用 `collections` 模块中的 `defaultdict` 自动初始化字典，并自动为将要访问的键（就算目前字典中并不存在这样的键）创建映射实体
+
+e.g.
+
+```python
+from collections import defaultdict
+
+d = defaultdict(list)
+d['a'].append(1)
+d['a'].append(2)
+d['b'].append(4)
+
+d = defaultdict(set)
+d['a'].add(1)
+d['a'].add(2)
+d['b'].add(4)
+```
+
+也可通过 `d.setdefault('a', []).append(1)` 实现默认创建键所映射的实体，此处 `d` 为一个普通的字典
+
+### 1.7 字典排序
+
+`OrderedDict` 会保持元素被插入时的顺序，可精确控制以 JSON 编码后字段的顺序，或对字典排序
+
+e.g.
+
+```python
+from collections import OrderedDict
+
+
+dd = {'banana': 3, 'apple': 4, 'pear': 1, 'orange': 2}
+
+# 按key排序
+kd = OrderedDict(sorted(dd.items(), key=lambda t: t[0]))
+print(kd)
+
+# 按照value排序
+vd = OrderedDict(sorted(dd.items(), key=lambda t: t[1]))
+print(vd)
+```
+
+### 1.8 字典的运算
+
+使用 `zip` 将键与值压缩成 `[(),(),...]`，需要注意的是 `zip` 函数创建的是一个只能访问一次的迭代器
+
+e.g.
+
+```python
+prices = {
+    'ACME': 45.23,
+    'AAPL': 612.78,
+    'IBM': 205.55,
+    'HPQ': 37.20,
+    'FB': 10.75
+}
+
+# 找最大最小值
+min_price = min(zip(prices.values(), prices.keys()))
+# min_price is (10.75, 'FB')
+max_price = max(zip(prices.values(), prices.keys()))
+# max_price is (612.78, 'AAPL')
+
+# 字典排序
+prices_sorted = sorted(zip(prices.values(), prices.keys()))
+# prices_sorted is [(10.75, 'FB'), (37.2, 'HPQ'),
+#                   (45.23, 'ACME'), (205.55, 'IBM'),
+#                   (612.78, 'AAPL')]
+
+# 获取最小值或最大值对应的键的信息
+min(prices, key=lambda k: prices[k]) # Returns 'FB'
+max(prices, key=lambda k: prices[k]) # Returns 'AAPL'
+```
+
+### 1.9 查找两字典的相同点
+
+两字典的 `keys()` 或者 `items()` 方法返回结果上执行集合操作，`values()` 方法不支持集合操作
+
+```python
+a = {
+    'x' : 1,
+    'y' : 2,
+    'z' : 3
+}
+
+b = {
+    'w' : 10,
+    'x' : 11,
+    'y' : 2
+}
+
+# Find keys in common
+a.keys() & b.keys() # { 'x', 'y' }
+# Find keys in a that are not in b
+a.keys() - b.keys() # { 'z' }
+# Find (key,value) pairs in common
+a.items() & b.items() # { ('y', 2) }
+```
+
+也可以用于修改或者过滤字典元素
+
+```python
+# Make a new dictionary with certain keys removed
+c = {key:a[key] for key in a.keys() - {'z', 'w'}}
+# c is {'x': 1, 'y': 2}
+```
