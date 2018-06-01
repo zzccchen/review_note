@@ -305,3 +305,20 @@ with open(somefile,'r') as f:
     for line in dedupe(f):
         pass
 ```
+
+### 1.11 命名切片
+
+前：
+
+```python
+record = '....................100 .......513.25 ..........'
+cost = int(record[20:23]) * float(record[31:37])
+```
+
+后：
+
+```python
+SHARES = slice(20, 23)
+PRICE = slice(31, 37)
+cost = int(record[SHARES]) * float(record[PRICE])
+```

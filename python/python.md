@@ -1,6 +1,38 @@
 # Python Note
 
-## 集合
+## slice 切片
+
+> `class slice(stop)`
+> `class slice(start, stop[, step])`
+
+```python
+items = [0, 1, 2, 3, 4, 5, 6]
+a = slice(2, 4)
+items[a]  # 等效于 items[2:4]
+          # 输出 [2, 3]
+
+items[a] = [10,11]
+print(items)  # 输出 [0, 1, 10, 11, 4, 5, 6]
+
+del items[a]
+print(items)  # 输出 [0, 1, 4, 5, 6]
+```
+
+`slice` 的属性
+
+```python
+>>> a = slice(5, 50, 2)
+>>> a.start
+5
+>>> a.stop
+50
+>>> a.step
+2
+```
+
+**在 `[a:b]` 的情况下，必须保证 a 所在的索引位置在前，b 所在的索引位置在后，否则返回结果为空。在 `[a:b:step]` 的情况下，我们首先要根据 a，b 的位置来判断方向，a在前，b在后的话，step 应该为正，否则应该为负，不符合这些情况的话，则返回空的数组**
+
+## 集合 
 
 ```python
 a = t | s  # t 和 s的并集
