@@ -246,3 +246,62 @@ a.items() & b.items() # { ('y', 2) }
 c = {key:a[key] for key in a.keys() - {'z', 'w'}}
 # c is {'x': 1, 'y': 2}
 ```
+
+### 1.10 删除序列相同元素并保持顺序
+
+如果序列上的值都是 `hashable` 类型，利用集合或者生成器来解决这个问题
+
+```python
+def dedupe(items):
+    seen = set()
+    for item in items:
+        if item not in seen:
+            yield item
+            seen.add(item)
+
+a = [1, 5, 2, 1, 9, 1, 5, 10]
+print(list(dedupe(a)))
+# 输出 [1, 5, 2, 9, 10]
+```
+
+如果序列上的值不可哈希（比如 `dict` 类型）
+
+```python
+def dedupe(items, key=None):
+    seen = set()
+    for item in items:
+        val = item if key is None else key(item)
+        if val not in seen:
+            yield item
+            seen.add(val)
+
+a = [{'x':1, 'y':2}, {'x':1, 'y':3}, {'x':1, 'y':2}, {'x':2, 'y':4}]
+print(list(dedupe(a, key=lambda d: (d['x'],d['y']))))
+# 输出 [{'x': 1, 'y': 2}, {'x': 1, 'y': 3}, {'x': 2, 'y': 4}]
+print(list(dedupe(a, key=lambda d: d['x'])))
+# 输出 [{'x': 1, 'y': 2}, {'x': 2, 'y': 4}]
+```
+
+如果仅想消除重复元素，不关心元素位置被打乱
+
+```python
+def dedupe(items, key=None):
+    seen = set()
+    for item in items:
+        val = item if key is None else key(item)
+        if val not in seen:
+            yield item
+            seen.add(val)
+
+a = [1, 5, 2, 1, 9, 1, 5, 10]
+print(set(a))
+# 输出 {1, 2, 10, 5, 9}
+```
+
+读取一个文件，消除重复行
+
+```python
+with open(somefile,'r') as f:
+    for line in dedupe(f):
+        pass
+```
