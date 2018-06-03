@@ -1,5 +1,9 @@
 # Python Note
 
+## dict 字典
+
+# TODO: https://www.cnblogs.com/wushuaishuai/p/7739441.html
+
 ## slice 切片
 
 > `class slice(stop)`
@@ -168,6 +172,8 @@ finally:
 `context_manager.__exit__(exc_type, exc_value, exc_traceback)` ：退出与上下文管理器相关的运行时上下文，返回一个布尔值表示是否对发生的异常进行处理。参数表示引起退出操作的异常，如果退出时没有发生异常，则3个参数都为 `None`。如果发生异常，返回 `True` 表示不处理异常，否则会在退出该方法后重新抛出异常以由 `with` 语句之外的代码逻辑进行处理。如果该方法内部产生异常，则会取代由 with-body 中语句产生的异常。要处理异常时，不要显示重新抛出异常，即不能重新抛出通过参数传递进来的异常，只需要将返回值设置为 `False` 就可以了。之后，上下文管理代码会检测是否 `__exit__()` 失败来处理异常
 
 上下文管理器必须同时提供 `__enter__()` 和 `__exit__()` 方法的定义，缺少任何一个都会导致 `AttributeError`；`with` 语句会先检查是否提供了 `__exit__()` 方法，然后检查是否定义了 `__enter__()` 方法
+
+# TODO: https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/#icomments
 
 ---
 
@@ -483,6 +489,12 @@ print(vd)
 # move_to_end （指定一个key，把对应的key-value移到最后）
 vd.move_to_end('banana')
 ```
+
+### Counter
+
+# TODO: http://python3-cookbook.readthedocs.io/zh_CN/latest/c01/p12_determine_most_freqently_items_in_seq.html
+
+# TODO: https://www.cnblogs.com/nisen/p/6052895.html
 
 ### \_\_repr__ 与 \_\_str__
 

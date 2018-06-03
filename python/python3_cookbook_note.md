@@ -322,3 +322,35 @@ SHARES = slice(20, 23)
 PRICE = slice(31, 37)
 cost = int(record[SHARES]) * float(record[PRICE])
 ```
+
+### 1.12 序列中出现次数最多的元素
+
+通过 `Counter` 实现：
+
+```python
+from collections import Counter
+
+words = [
+    'look', 'into', 'my', 'eyes', 'look', 'into', 'my', 'eyes',
+    'the', 'eyes', 'the', 'eyes', 'the', 'eyes', 'not', 'around', 'the',
+    'eyes', "don't", 'look', 'around', 'the', 'eyes', 'look', 'into',
+    'my', 'eyes', "you're", 'under'
+]
+
+word_counts = Counter(words)
+# 出现频率最高的3个单词
+top_three = word_counts.most_common(3)
+print(top_three)
+# Outputs [('eyes', 8), ('the', 5), ('look', 4)]
+```
+
+通过 `dict` 实现：
+
+```python
+morewords = ['why','are','you','not','looking','in','my','eyes']
+
+word_counts.update(morewords)
+# 或以下方法
+for word in morewords:
+    word_counts[word] += 1
+```
