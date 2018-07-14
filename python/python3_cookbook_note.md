@@ -55,8 +55,6 @@ for tag, *args in records:
 
 ### 1.3 保留最后 N 个元素
 
-[关于 deque](./python.md/###-deque-双向队列)
-
 e.g.
 
 ```python
@@ -80,6 +78,8 @@ if __name__ == '__main__':
             print('-' * 20)
 ```
 
+[关于 deque 双向队列](./python.md#deque-双向队列)
+
 ### 1.4 查找最大或最小的 N 个元素
 
 e.g.
@@ -99,11 +99,19 @@ portfolio = [
     {'name': 'YHOO', 'shares': 45, 'price': 16.35},
     {'name': 'ACME', 'shares': 75, 'price': 115.65}
 ]
-cheap = heapq.nsmallest(3, portfolio, key=lambda s: s['price'])
-expensive = heapq.nlargest(3, portfolio, key=lambda s: s['price'])
+cheap = heapq.nsmallest(2, portfolio, key=lambda s: s['price'])
+print(cheap)
+# 输出 [{'name': 'YHOO', 'shares': 45, 'price': 16.35},
+# {'name': 'FB', 'shares': 200, 'price': 21.09}]
+expensive = heapq.nlargest(2, portfolio, key=lambda s: s['price'])
+print(expensive)
+# 输出 [{'name': 'AAPL', 'shares': 50, 'price': 543.22},
+# {'name': 'ACME', 'shares': 75, 'price': 115.65}]
 ```
 
-堆数据结构最重要的特征是 `heap[0]` 永远是最小的元素。并且剩余的元素可以很容易的通过调用 `heapq.heappop()` 方法得到， 该方法会先将第一个元素弹出来，然后用下一个最小的元素来取代被弹出元素
+[关于 heapq 堆](./python.md#heapq-堆)
+
+堆数据结构最重要的特征是 `heap[0]` 永远是最小的元素。并且剩余的元素可以很容易的通过调用 `heapq.heappop()` 弹出最小元素方法得到， 该方法会先将第一个（最小）元素弹出来，然后用下一个最小的元素来取代被弹出元素
 
 如果你仅仅想查找唯一的最小或最大（N=1）的元素的话，那么使用 `min()` 和 `max()` 函数会更快些。 类似的，如果 N 的大小和集合大小接近的时候，通常先排序这个集合然后再使用切片操作会更快点（`sorted(items)[:N]` 或者是 `sorted(items)[-N:]`）
 
@@ -140,6 +148,10 @@ q = PriorityQueue()
 q.push(Item('foo'), 1)
 q.pop()
 ```
+
+[关于 heapq 堆](./python.md#heapq-堆)  
+[关于 \_\_repr__](./python.md#__repr__-与-__str__)
+
 
 ### 1.6 字典中的键映射多个值
 
