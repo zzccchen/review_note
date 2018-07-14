@@ -48,7 +48,19 @@ application.listen(8080)
 IOLoop.current().start()
 ```
 
-启动多线程
+**finish 的说明**
+
+在调用 `self.finish()` 以后不终止 `RequestHandler` 中相关处理函数的运行
+
+`self.finish()` 代表回应生成的终结，并不代表着请求处理逻辑的终结，同理还有 `self.render` / `self.write`
+
+我们在所有这种 response 语句前加 `return` 保证其它逻辑不执行，例如：
+
+```python
+return self.redirect('/')
+```
+
+**启动多线程**
 
 ```python
 from tornado.httpserver import HTTPServer
@@ -58,7 +70,7 @@ server.bind(8080)  # 绑定8080端口
 server.start(4)  # 启动4线程
 ```
 
-抓取网页内容
+**抓取网页内容**
 
 ```python
 from tornado.httpclient import AsyncHTTPClient

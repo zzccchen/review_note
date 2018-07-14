@@ -304,7 +304,7 @@ logger = logging.getLogger("main")
 
 
 def logging(level):
-    def decorator(func):
+    def decorator(func): 
         @wraps(func)
         # *args 用来代替参数， **kwargs 用来代替关键字函数
         def wrapper(*arg, **kwargs):

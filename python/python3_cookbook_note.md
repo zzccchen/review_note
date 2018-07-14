@@ -28,7 +28,9 @@ x, y = p
 e.g.
 
 分离首位值和末位值：`first, *middle, last = grades`
+
 分离首位值和第二位值：`first, second, *last = grades`
+
 在 `for` 中的使用：
 
 ```python
@@ -52,6 +54,8 @@ for tag, *args in records:
 ```
 
 ### 1.3 保留最后 N 个元素
+
+[关于 deque](./python.md/###-deque-双向队列)
 
 e.g.
 
