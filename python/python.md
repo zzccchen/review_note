@@ -456,7 +456,9 @@ min((), 0)  # 报错 TypeError: unorderable types: int() < tuple()
 
 `defaultdict` 类的初始化函数接受一个类型作为参数，当所访问的键不存在的时候，可以实例化一个值作为默认值
 
-这种形式的默认值只有在通过 `dict[key]` 或者 `dict.__getitem__(key)` 访问的时候才有效
+这种形式的默认值只有在通过 `dict[key]` 或者 `dict.__getitem__(key)` 访问的时候才有效，
+
+通过 `dict.get(key)` 得到的默认值仍为 `dict.get(key)` 方法的默认值，即 `None`
 
 ```python
 from collections import defaultdict

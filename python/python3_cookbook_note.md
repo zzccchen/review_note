@@ -177,6 +177,8 @@ d['b'].add(4)
 
 也可通过 `d.setdefault('a', []).append(1)` 实现默认创建键所映射的实体，此处 `d` 为一个普通的字典
 
+[关于 defaultdict](./python.md#defaultdict)
+
 ### 1.7 字典排序
 
 `OrderedDict` 会保持元素被插入时的顺序，可精确控制以 JSON 编码后字段的顺序，或对字典排序
