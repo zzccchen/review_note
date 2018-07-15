@@ -157,6 +157,8 @@ q.pop()
 
 **将键映射到列表 `list` 或集合 `set` 中**
 
+[关于 defaultdict](./python.md#defaultdict)
+
 可以使用 `collections` 模块中的 `defaultdict` 自动初始化字典，并自动为将要访问的键（就算目前字典中并不存在这样的键）创建映射实体
 
 e.g.
@@ -177,9 +179,9 @@ d['b'].add(4)
 
 也可通过 `d.setdefault('a', []).append(1)` 实现默认创建键所映射的实体，此处 `d` 为一个普通的字典
 
-[关于 defaultdict](./python.md#defaultdict)
-
 ### 1.7 字典排序
+
+[关于 OrderedDict](./python.md#OrderedDict)
 
 `OrderedDict` 会保持元素被插入时的顺序，可精确控制以 JSON 编码后字段的顺序，或对字典排序
 
@@ -229,10 +231,13 @@ prices_sorted = sorted(zip(prices.values(), prices.keys()))
 
 # 获取最小值或最大值对应的键的信息
 min(prices, key=lambda k: prices[k]) # Returns 'FB'
+print(min(prices.items(), key=lambda k: k[1]))# Returns ('FB', 10.75)
 max(prices, key=lambda k: prices[k]) # Returns 'AAPL'
 ```
 
 ### 1.9 查找两字典的相同点
+
+[关于 集合](./python.md#集合)
 
 两字典的 `keys()` 或者 `items()` 方法返回结果上执行集合操作，`values()` 方法不支持集合操作
 
@@ -303,14 +308,6 @@ print(list(dedupe(a, key=lambda d: d['x'])))
 如果仅想消除重复元素，不关心元素位置被打乱
 
 ```python
-def dedupe(items, key=None):
-    seen = set()
-    for item in items:
-        val = item if key is None else key(item)
-        if val not in seen:
-            yield item
-            seen.add(val)
-
 a = [1, 5, 2, 1, 9, 1, 5, 10]
 print(set(a))
 # 输出 {1, 2, 10, 5, 9}
@@ -341,9 +338,11 @@ PRICE = slice(31, 37)
 cost = int(record[SHARES]) * float(record[PRICE])
 ```
 
+[关于 slice 切片](./python.md#slice-切片)
+
 ### 1.12 序列中出现次数最多的元素
 
-通过 `Counter` 实现：
+[关于 Counter](./python.md#Counter)
 
 ```python
 from collections import Counter
@@ -362,13 +361,21 @@ print(top_three)
 # Outputs [('eyes', 8), ('the', 5), ('look', 4)]
 ```
 
-通过 `dict` 实现：
+如果想手动增加计数：
 
 ```python
 morewords = ['why','are','you','not','looking','in','my','eyes']
 
+# 通过update()
 word_counts.update(morewords)
-# 或以下方法
+
+# 或通过dict
 for word in morewords:
     word_counts[word] += 1
+
+# 或通过数学运算操作
+a = Counter(words)
+b = Counter(morewords)
+c = a + b
+d = a - b
 ```

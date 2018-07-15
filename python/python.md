@@ -15,7 +15,7 @@ a = slice(2, 4)
 items[a]  # 等效于 items[2:4]
           # 输出 [2, 3]
 
-items[a] = [10,11]
+items[a] = [10,11]  # 等效于 items[2:4] = [10,11]
 print(items)  # 输出 [0, 1, 10, 11, 4, 5, 6]
 
 del items[a]
@@ -494,9 +494,75 @@ vd.move_to_end('banana')
 
 ### Counter
 
-# TODO: http://python3-cookbook.readthedocs.io/zh_CN/latest/c01/p12_determine_most_freqently_items_in_seq.html
+`Counter` 对象可以接受任意的由可哈希( `hashable` )元素构成的序列对象。 在底层实现上，一个 `Counter` 对象就是一个字典，将元素映射到它出现的次数上
 
-# TODO: https://www.cnblogs.com/nisen/p/6052895.html
+创建一个 `Counter`
+
+```python
+from collections import Counter
+
+
+a = Counter('abcasdf')
+b = Counter({'red': 4, 'yello': 2})
+c = Counter(cats=2, dogs=5)
+c1 = Counter(c)
+
+print(a)  # Counter({'a': 2, 'b': 1, 'c': 1, 's': 1, 'd': 1, 'f': 1})
+print(b)  # Counter({'red': 4, 'yello': 2})
+print(c)  # Counter({'dogs': 5, 'cats': 2})
+print(c1)  # Counter({'dogs': 5, 'cats': 2})
+```
+
+因为 Counter 实现了字典的 `__missing__` 方法， 所以当访问不存在的 key 的时候，返回值为 0
+
+```python
+# elements() 按照counter的计数，重复返回元素
+>>> c = Counter(a=4, b=2, c=0, d=-2)
+>>> list(c.elements())
+['a', 'a', 'a', 'a', 'b', 'b']
+
+# most_common(n) 按照counter的计数，按照降序，返回前n项组成的list; n忽略时返回全部
+>>> Counter('abracadabra').most_common(3)
+[('a', 5), ('r', 2), ('b', 2)]
+
+# subtract([iterable-or-mapping]) counter按照相应的元素，计数相减，，此方法保留任意值的value
+>>> c = Counter(a=4, b=2, c=0, d=-2)
+>>> d = Counter(a=1, b=2, c=3, d=4)
+>>> c.subtract(d)  
+>>> c
+Counter({'a': 3, 'b': 0, 'c': -3, 'd': -6})
+# 等同于 c - d，但此方法只保留正值(>0)的value
+>>> c - d
+Counter({'a': 3})
+
+# update([iterable-or-mapping]) 不同于字典的update方法，这里更新counter时，相同的key的value值相加而不是覆盖
+# 实例化 Counter 时， 实际也是调用这个方法，此方法保留任意值的value
+# 等同于 c + d，但此方法只保留正值(>0)的value
+
+
+# Counter 间的数学集合操作
+>>> c = Counter(a=3, b=1, c=5)
+>>> d = Counter(a=1, b=2, d=4)
+>>> c + d                       # counter相加, 相同的key的value相加，只保留正值(>0)的value
+Counter({'c': 5, 'a': 4, 'd': 4, 'b': 3})
+>>> c - d                       # counter相减, 相同的key的value相减，只保留正值(>0)的value
+Counter({'c': 5, 'a': 2})
+>>> c & d                       # 交集:  取两者都有的key,value取小的那一个
+Counter({'a': 1, 'b': 1})
+>>> c | d                       # 并集:  汇聚所有的key, key相同的情况下，取大的value
+Counter({'c': 5, 'd': 4, 'a': 3, 'b': 2})
+
+常见做法:
+sum(c.values())                 # 继承自字典的.values()方法返回values的列表，再求和
+c.clear()                       # 继承自字典的.clear()方法，清空counter
+list(c)                         # 返回key组成的list
+set(c)                          # 返回key组成的set
+dict(c)                         # 转化成字典
+c.items()                       # 转化成(元素，计数值)组成的列表
+Counter(dict(list_of_pairs))    # 从(元素，计数值)组成的列表转化成Counter
+c.most_common()[:-n-1:-1]       # 最小n个计数的(元素，计数值)组成的列表
+c += Counter()                  # 利用counter的相加来去除负值和0的值
+```
 
 ### \_\_repr__ 与 \_\_str__
 
