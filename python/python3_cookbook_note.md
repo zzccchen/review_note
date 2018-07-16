@@ -493,3 +493,79 @@ for row in rows:
 ```
 
 此方法没有对记录进行排序。因此，如果对内存占用不是很关心， 这种方式会比先排序然后再通过 `groupby()` 函数迭代的方式运行得快一些
+
+### 1.16 过滤序列元素
+
+最简单的方法就是使用列表推导，但一个潜在缺陷就是如果输入非常大的时候会产生一个非常大的结果集，占用大量内存：
+
+```python
+>>> mylist = [1, 4, -5, 10, -7, 2, 3, -1]
+>>> [n for n in mylist if n > 0]
+[1, 4, 10, 2, 3]
+>>> [n for n in mylist if n < 0]
+[-5, -7, -1]
+```
+
+使用生成器表达式迭代产生过滤的元素，可以减少内存占用：
+
+```python
+>>> pos = (n for n in mylist if n > 0)
+>>> pos
+<generator object <genexpr> at 0x1006a0eb0>
+>>> for x in pos:
+... print(x)
+```
+
+也可以使用内建的 `filter()` 函数，适用于过滤规则比较复杂的情况：
+
+```python
+values = ['1', '2', '-3', '-', '4', 'N/A', '5']
+def is_int(val):
+    try:
+        x = int(val)
+        return True
+    except ValueError:
+        return False
+ivals = list(filter(is_int, values))
+print(ivals)
+# Outputs ['1', '2', '-3', '4', '5']
+```
+
+过滤操作的一个变种就是将不符合条件的值用新的值代替，而不是丢弃它们：
+
+```python
+>>> clip_neg = [n if n > 0 else 0 for n in mylist]
+>>> clip_neg
+[1, 4, 0, 10, 0, 2, 3, 0]
+>>> counts = [ 0, 3, 10, 4, 1, 7, 6, 1]
+>>> more5 = [n > 5 for n in counts]
+>>> more5
+[False, False, True, False, False, True, True, False]
+```
+
+使用 `itertools.compress()`：
+
+```python
+addresses = [
+    '5412 N CLARK',
+    '5148 N CLARK',
+    '5800 E 58TH',
+    '2122 N CLARK',
+    '5645 N RAVENSWOOD',
+    '1060 W ADDISON',
+    '4801 N BROADWAY',
+    '1039 W GRANVILLE',
+]
+counts = [ 0, 3, 10, 4, 1, 7, 6, 1]
+
+>>> from itertools import compress
+>>> more5 = [n > 5 for n in counts]
+>>> more5
+[False, False, True, False, False, True, True, False]
+>>> list(compress(addresses, more5))
+['5800 E 58TH', '1060 W ADDISON', '4801 N BROADWAY']
+```
+
+`itertools.compress()` 以一个 `iterable` 对象和一个相对应的 `Boolean` 选择器序列作为输入参数。然后输出 `iterable` 对象中对应选择器为 `True` 的元素。当需要用另外一个相关联的序列来过滤某个序列的时候，这个函数是非常有用的
+
+和 `filter()` 函数类似，`compress()` 也是返回的一个迭代器。因此，如果需要得到一个列表，那么需要使用 `list()` 来将结果转换为列表类型
