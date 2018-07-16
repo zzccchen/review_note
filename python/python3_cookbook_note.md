@@ -656,3 +656,61 @@ Stock(name='ACME', shares=100, price=123.45, date=None, time=None)
 >>> dict_to_stock(b)
 Stock(name='ACME', shares=100, price=123.45, date='12/17/2012', time=None)
 ```
+
+### 1.19 转换并同时计算数据
+
+使用一个生成器表达式参数
+
+```python
+s = sum((x * x for x in nums)) # 显示的传递一个生成器表达式对象
+s = sum(x * x for x in nums) # 更加优雅的实现方式，省略了括号
+```
+
+而使用一个生成器表达式作为参数会比先创建一个临时列表更加高效和优雅
+
+```python
+nums = [1, 2, 3, 4, 5]
+s = sum([x * x for x in nums])
+```
+
+### 1.20 合并多个字典或映射
+
+使用 `collections` 模块中的 `ChainMap` 类
+
+```python
+from collections import ChainMap
+
+
+a = {'x': 1, 'z': 3 }
+b = {'y': 2, 'z': 4 }
+
+c = ChainMap(a,b)
+print(c['x'])  # 输出 1  # 来自 a
+print(c['y'])  # 输出 2  # 来自 b
+print(c['z'])  # 输出 3  # 来自 a
+```
+
+一个 `ChainMap` 接受多个字典并将它们在逻辑上变为一个字典。然后，这些字典并不是真的合并在一起了，`ChainMap` 类只是在内部创建了一个容纳这些字典的列表，并重新定义了一些常见的字典操作来遍历这个列表
+
+大部分字典操作都是可以正常使用的，但如果出现重复键，那么第一次出现的映射值会被返回。对于字典的更新或删除操作总是影响的是列表中第一个字典
+
+```python
+>>> len(c)
+3
+>>> list(c.keys())
+['x', 'y', 'z']
+>>> list(c.values())
+[1, 2, 3]
+
+>>> c['z'] = 10
+>>> c['w'] = 40
+>>> del c['x']
+>>> a
+{'w': 40, 'z': 10}
+>>> del c['y']
+Traceback (most recent call last):
+...
+KeyError: "Key not found in the first mapping: 'y'"
+```
+
+注意：`ChainMap` 使用原来的字典，它自己不创建新的字典
