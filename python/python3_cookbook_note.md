@@ -569,3 +569,31 @@ counts = [ 0, 3, 10, 4, 1, 7, 6, 1]
 `itertools.compress()` 以一个 `iterable` 对象和一个相对应的 `Boolean` 选择器序列作为输入参数。然后输出 `iterable` 对象中对应选择器为 `True` 的元素。当需要用另外一个相关联的序列来过滤某个序列的时候，这个函数是非常有用的
 
 和 `filter()` 函数类似，`compress()` 也是返回的一个迭代器。因此，如果需要得到一个列表，那么需要使用 `list()` 来将结果转换为列表类型
+
+### 1.17 从字典中提取子集
+
+使用字典推导:
+
+```python
+prices = {
+    'ACME': 45.23,
+    'AAPL': 612.78,
+    'IBM': 205.55,
+    'HPQ': 37.20,
+    'FB': 10.75
+}
+# Make a dictionary of all prices over 200
+p1 = {key: value for key, value in prices.items() if value > 200}
+# Make a dictionary of tech stocks
+tech_names = {'AAPL', 'IBM', 'HPQ', 'MSFT'}
+p2 = {key: value for key, value in prices.items() if key in tech_names}
+```
+
+或：
+
+```python
+p1 = dict((key, value) for key, value in prices.items() if value > 200)
+p2 = { key:prices[key] for key in prices.keys() & tech_names }
+```
+
+但使用法一，即字典推导是最快的
