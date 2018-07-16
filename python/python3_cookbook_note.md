@@ -597,3 +597,62 @@ p2 = { key:prices[key] for key in prices.keys() & tech_names }
 ```
 
 但使用法一，即字典推导是最快的
+
+### 1.18 映射名称到序列元素
+
+```python
+>>> from collections import namedtuple
+>>> Subscriber = namedtuple('Subscriber', ['addr', 'joined'])
+>>> sub = Subscriber('jonesy@example.com', '2012-10-19')
+>>> sub
+Subscriber(addr='jonesy@example.com', joined='2012-10-19')
+>>> sub.addr
+'jonesy@example.com'
+>>> sub.joined
+'2012-10-19'
+```
+
+尽管 `namedtuple` 的实例看起来像一个普通的类实例，但是它跟元组类型是可交换的，支持所有的普通元组操作，比如索引和解压
+
+```python
+>>> len(sub)
+2
+>>> addr, joined = sub
+>>> addr
+'jonesy@example.com'
+>>> joined
+'2012-10-19'
+```
+
+命名元组的一个主要用途是将你的代码从下标操作中解脱出来。因此，如果你从数据库调用中返回了一个很大的元组列表，通过下标去操作其中的元素，当你在表中添加了新的列的时候你的代码可能就会出错了。但是如果你使用了命名元组，那么就不会有这样的顾虑
+
+命名元组另一个用途就是作为字典的替代，因为字典存储需要更多的内存空间。 如果你需要构建一个非常大的包含字典的数据结构，那么使用命名元组会更加高效。 但是需要注意的是，不像字典那样，一个命名元组是不可更改的。如果真的需要改变属性的值，那么可以使用命名元组实例的 `_replace()` 方法， 它会创建一个全新的命名元组并将对应的字段用新的值取代
+
+```python
+>>> sub = sub._replace(joined='2010-10-10')
+>>> sub
+Subscriber(addr='jonesy@example.com', joined='2010-10-10')
+```
+
+`_replace()` 方法还有一个很有用的特性就是当你的命名元组拥有可选或者缺失字段时候，它是一个非常方便的填充数据的方法。你可以先创建一个包含缺省值的原型元组，然后使用 `_replace()` 方法创建新的值被更新过的实例
+
+```python
+from collections import namedtuple
+
+
+Stock = namedtuple('Stock', ['name', 'shares', 'price', 'date', 'time'])
+
+# Create a prototype instance
+stock_prototype = Stock('', 0, 0.0, None, None)
+
+# Function to convert a dictionary to a Stock
+def dict_to_stock(s):
+    return stock_prototype._replace(**s)
+
+>>> a = {'name': 'ACME', 'shares': 100, 'price': 123.45}
+>>> dict_to_stock(a)
+Stock(name='ACME', shares=100, price=123.45, date=None, time=None)
+>>> b = {'name': 'ACME', 'shares': 100, 'price': 123.45, 'date': '12/17/2012'}
+>>> dict_to_stock(b)
+Stock(name='ACME', shares=100, price=123.45, date='12/17/2012', time=None)
+```
