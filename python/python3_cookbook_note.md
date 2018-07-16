@@ -379,3 +379,48 @@ b = Counter(morewords)
 c = a + b
 d = a - b
 ```
+
+### 1.12 通过某个关键字排序一个字典列表
+
+[关于 itemgetter](./python.md#itemgetter)
+
+```python
+rows = [
+    {'fname': 'Brian', 'lname': 'Jones', 'uid': 1003},
+    {'fname': 'David', 'lname': 'Beazley', 'uid': 1002},
+    {'fname': 'John', 'lname': 'Cleese', 'uid': 1001},
+    {'fname': 'Big', 'lname': 'Jones', 'uid': 1004}
+]
+```
+
+通过使用 `operator` 模块的 `itemgetter` 函数：
+
+```python
+from operator import itemgetter
+
+
+rows_by_fname = sorted(rows, key=itemgetter('fname'))
+rows_by_uid = sorted(rows, key=itemgetter('uid'))
+rows_by_lfname = sorted(rows, key=itemgetter('lname','fname'))
+
+print(rows_by_fname)
+print(rows_by_uid)
+print(rows_by_lfname)
+```
+
+通过 `lambda` 表达式：
+
+```python
+from operator import itemgetter
+
+
+rows_by_fname = sorted(rows, key=lambda r: r['fname'])
+rows_by_lfname = sorted(rows, key=lambda r: (r['lname'],r['fname']))
+
+print(rows_by_fname)
+print(rows_by_lfname)
+```
+
+但使用 `itemgetter()` 方式会运行的稍微快点
+
+同时上述方法对 `min()` 和 `max()` 等函数也同样适用
