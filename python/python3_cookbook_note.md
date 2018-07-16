@@ -435,3 +435,61 @@ print(rows_by_lfname)
 因此可以使用 `operator.attrgetter()`, `operator.itemgetter()`, `lambda` 来传入 `key`
 
 `attrgetter()` 函数与 `itemgetter()` 类似，通常会比 `lambda` 运行的稍微快点
+
+### 1.15 通过某个字段将记录分组
+
+[关于 groupby](./python.md#groupby) 
+
+通过 `groupby()` 函数：
+
+```python
+from itertools import groupby
+from operator import itemgetter
+
+
+rows = [
+    {'address': '5412 N CLARK', 'date': '07/01/2012'},
+    {'address': '5148 N CLARK', 'date': '07/04/2012'},
+    {'address': '5800 E 58TH', 'date': '07/02/2012'},
+    {'address': '2122 N CLARK', 'date': '07/03/2012'},
+    {'address': '5645 N RAVENSWOOD', 'date': '07/02/2012'},
+    {'address': '1060 W ADDISON', 'date': '07/02/2012'},
+    {'address': '4801 N BROADWAY', 'date': '07/01/2012'},
+    {'address': '1039 W GRANVILLE', 'date': '07/04/2012'},
+]
+
+# Sort by the desired field first
+rows.sort(key=itemgetter('date'))
+# Iterate in groups
+for date, items in groupby(rows, key=itemgetter('date')):
+    print(date)
+    for i in items:
+        print(' ', i)
+
+# 输出
+# 07/01/2012
+#   {'date': '07/01/2012', 'address': '5412 N CLARK'}
+#   {'date': '07/01/2012', 'address': '4801 N BROADWAY'}
+# 07/02/2012
+#   {'date': '07/02/2012', 'address': '5800 E 58TH'}
+#   {'date': '07/02/2012', 'address': '5645 N RAVENSWOOD'}
+#   {'date': '07/02/2012', 'address': '1060 W ADDISON'}
+# 07/03/2012
+#   {'date': '07/03/2012', 'address': '2122 N CLARK'}
+# 07/04/2012
+#   {'date': '07/04/2012', 'address': '5148 N CLARK'}
+#   {'date': '07/04/2012', 'address': '1039 W GRANVILLE'}
+```
+
+或：
+
+```python
+from collections import defaultdict
+
+
+rows_by_date = defaultdict(list)
+for row in rows:
+    rows_by_date[row['date']].append(row)
+```
+
+此方法没有对记录进行排序。因此，如果对内存占用不是很关心， 这种方式会比先排序然后再通过 `groupby()` 函数迭代的方式运行得快一些

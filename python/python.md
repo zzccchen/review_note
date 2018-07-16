@@ -641,6 +641,51 @@ print(attrgetter('c.a')(A))
 
 ---
 
+### groupby
+
+`groupby()` 函数扫描整个序列并且查找连续相同值（或者根据指定 `key` 函数返回值相同）的元素序列。在每次迭代的时候，它会返回一个值和一个迭代器对象，这个迭代器对象可以生成元素值全部等于上面那个值的组中所有对象
+
+一个非常重要的准备步骤是 **要根据指定的字段先将数据排序**。因为 `groupby()` 仅仅检查连续的元素，如果事先并没有排序完成的话，分组函数将得不到想要的结果
+
+```python
+from itertools import groupby
+from operator import itemgetter
+
+
+d1={'name':'zhangsan','age':20,'country':'China'}
+d2={'name':'wangwu','age':19,'country':'USA'}
+d3={'name':'lisi','age':22,'country':'JP'}
+d4={'name':'zhaoliu','age':22,'country':'USA'}
+d5={'name':'pengqi','age':22,'country':'USA'}
+d6={'name':'lijiu','age':22,'country':'China'}
+lst=[d1,d2,d3,d4,d5,d6]
+
+# 通过country进行分组：
+lst.sort(key=itemgetter('country'))  # 需要先排序，然后才能groupby，lst排序后自身被改变
+lstg = groupby(lst,itemgetter('country'))
+# lstg = groupby(lst,key=lambda x:x['country']) 等同于使用itemgetter()
+
+for key,group in lstg:
+    for g in group: #group是一个迭代器，包含了所有的分组列表
+        print key,g
+# 输出
+# China {'country': 'China', 'age': 20, 'name': 'zhangsan'}
+# China {'country': 'China', 'age': 22, 'name': 'lijiu'}
+# JP {'country': 'JP', 'age': 22, 'name': 'lisi'}
+# USA {'country': 'USA', 'age': 19, 'name': 'wangwu'}
+# USA {'country': 'USA', 'age': 22, 'name': 'zhaoliu'}
+# USA {'country': 'USA', 'age': 22, 'name': 'pengqi'}
+
+print [key for key,group in lstg]  # 输出 ['China', 'JP', 'USA']
+
+print [(key,list(group)) for key,group in lstg]
+# 输出的list中包含着三个元组：
+# [('China', [{'country': 'China', 'age': 20, 'name': 'zhangsan'}, {'country': 'China', 'age': 22, 'name': 'lijiu'}]),
+#  ('JP', [{'country': 'JP', 'age': 22, 'name': 'lisi'}]),
+#  ('USA', [{'country': 'USA', 'age': 19, 'name': 'wangwu'}, {'country': 'USA', 'age': 22, 'name': 'zhaoliu'}, {'country': 'USA', 'age': 22, 'name': 'pengqi'}])]
+```
+
+---
 ### \_\_repr__ 与 \_\_str__
 
 重构 `__repr__` 方法后，不管直接输出对象还是通过 `print` 打印的信息都按 `__repr__` 方法中定义的格式进行显示了
