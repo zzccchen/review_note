@@ -610,6 +610,37 @@ print(b(a))
 
 ---
 
+### attrgetter
+
+`operator` 模块提供的 `attrgetter` 函数与 `itemgetter` 函数功能类似
+
+两者区别是：`itemgetter` 是以 `index` 或 `key` 的形式来获取相对应的值，`attrgetter` 是用 `attribute` 来获取相对应的属性值
+
+`attrgetter` 比 `itemgetter` 功能强大在可以嵌套的提取对象中的属性 `attribute`
+
+```python
+from operator import attrgetter
+
+
+class B(object):
+    a = "hello!"
+    b = "world!"
+
+
+class A(object):
+    a = "hello"
+    b = "world"
+    c = B()
+
+
+print(attrgetter('a')(A))
+# 输出 hello
+print(attrgetter('c.a')(A))
+# 输出 hello!
+```
+
+---
+
 ### \_\_repr__ 与 \_\_str__
 
 重构 `__repr__` 方法后，不管直接输出对象还是通过 `print` 打印的信息都按 `__repr__` 方法中定义的格式进行显示了

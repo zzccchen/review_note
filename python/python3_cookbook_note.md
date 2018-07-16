@@ -380,7 +380,7 @@ c = a + b
 d = a - b
 ```
 
-### 1.12 通过某个关键字排序一个字典列表
+### 1.13 通过某个关键字排序一个字典列表
 
 [关于 itemgetter](./python.md#itemgetter)
 
@@ -424,3 +424,14 @@ print(rows_by_lfname)
 但使用 `itemgetter()` 方式会运行的稍微快点
 
 同时上述方法对 `min()` 和 `max()` 等函数也同样适用
+
+### 1.14 排序不支持原生比较的对象
+
+[关于 itemgetter](./python.md#itemgetter)  
+[关于 attrgetter](./python.md#attrgetter)
+
+内置的 `sorted()` 函数有一个关键字参数 `key` ，可以传入一个 `callable` 对象给它。 这个 `callable` 对象对每个传入的对象返回一个值，这个值会被 `sorted` 用来排序这些对象
+
+因此可以使用 `operator.attrgetter()`, `operator.itemgetter()`, `lambda` 来传入 `key`
+
+`attrgetter()` 函数与 `itemgetter()` 类似，通常会比 `lambda` 运行的稍微快点
