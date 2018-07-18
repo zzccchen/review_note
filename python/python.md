@@ -2,7 +2,7 @@
 
 ## dict 字典
 
-# TODO: https://www.cnblogs.com/wushuaishuai/p/7739441.html
+*TODO: https://www.cnblogs.com/wushuaishuai/p/7739441.html*
 
 ## slice 切片
 
@@ -108,6 +108,12 @@ print('hello, {!r}'.format('123'))
 
 ---
 
+## 正则表达式
+
+*TODO: http://www.runoob.com/regexp/regexp-syntax.html*
+
+---
+
 ## [with 语句](https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/#icomments)
 
 > **上下文管理协议（Context Management Protocol）**：包含方法 `__enter__` 和 `__exit__`，支持该协议的对象要实现这两个方法
@@ -173,7 +179,7 @@ finally:
 
 上下文管理器必须同时提供 `__enter__()` 和 `__exit__()` 方法的定义，缺少任何一个都会导致 `AttributeError`；`with` 语句会先检查是否提供了 `__exit__()` 方法，然后检查是否定义了 `__enter__()` 方法
 
-# TODO: https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/#icomments
+*TODO: https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/#icomments*
 
 ---
 
@@ -428,6 +434,14 @@ func = decorator(x, y, z)(func)
 ---
 
 ## 内置函数
+
+### any 与 all
+
+`any(obj)` 判断对象 `obj` 是否 **不都为** `None`, `0`, `False`，如果是则返回 `True`，否则返回 `False`
+
+`all(obj)` 判断对象 `obj` 是否 **都不为** `None`, `0`, `False`，如果是则返回 `True`，否则返回 `False`
+
+---
 
 ### min 与 max
 

@@ -438,7 +438,7 @@ print(rows_by_lfname)
 
 ### 1.15 通过某个字段将记录分组
 
-[关于 groupby](./python.md#groupby) 
+[关于 groupby](./python.md#groupby)
 
 通过 `groupby()` 函数：
 
@@ -593,7 +593,7 @@ p2 = {key: value for key, value in prices.items() if key in tech_names}
 
 ```python
 p1 = dict((key, value) for key, value in prices.items() if value > 200)
-p2 = { key:prices[key] for key in prices.keys() & tech_names }
+p2 = {key:prices[key] for key in prices.keys() & tech_names}
 ```
 
 但使用法一，即字典推导是最快的
@@ -714,3 +714,126 @@ KeyError: "Key not found in the first mapping: 'y'"
 ```
 
 注意：`ChainMap` 使用原来的字典，它自己不创建新的字典
+
+## 第二章
+
+### 2.1 使用多个界定符分割字符串
+
+[关于 str.split()](http://www.runoob.com/python3/python3-string-split.html)
+
+[关于 正则表达式](./python.md#正则表达式)
+
+使用 `re.split()`：
+
+```python
+>>> line = 'asdf fjdk; afed, fjek,asdf, foo'
+>>> import re
+>>> re.split(r'[;,\s]\s*', line)
+['asdf', 'fjdk', 'afed', 'fjek', 'asdf', 'foo']
+
+>>> fields = re.split(r'(;|,|\s)\s*', line)  # 注意此处添加了一个括号捕获分组
+                                             # 如果使用了捕获分组，那么被匹配的文本也将出现在结果列表中
+>>> fields
+['asdf', ' ', 'fjdk', ';', 'afed', ',', 'fjek', ',', 'asdf', ',', 'foo']
+
+>>> values = fields[::2]
+>>> delimiters = fields[1::2] + ['']
+>>> values
+['asdf', 'fjdk', 'afed', 'fjek', 'asdf', 'foo']
+>>> delimiters
+[' ', ';', ',', ',', ',', '']
+>>> # 重新构造一个新的输出字符串
+>>> ''.join(v+d for v,d in zip(values, delimiters))
+'asdf fjdk;afed,fjek,asdf,foo'
+
+>>> re.split(r'(?:,|;|\s)\s*', line)  # 或使用非捕获分组避免上述效果，形如 (?:...)
+['asdf', 'fjdk', 'afed', 'fjek', 'asdf', 'foo']
+```
+
+### 2.2 字符串开头或结尾匹配
+
+使用 `str.startswith()` 或 `str.endswith()` 方法
+
+```python
+>>> filename = 'spam.txt'
+>>> filename.endswith('.txt')
+True
+>>> filename.startswith('file:')
+False
+>>> url = 'http://www.python.org'
+>>> url.startswith('http:')
+True
+```
+
+如果想检查多种匹配可能，将所有的匹配项放入到一个元组中去， 然后传给 `startswith()` 或者 `endswith()` 方法
+
+```python
+>>> import os
+>>> filenames = os.listdir('.')
+>>> filenames
+[ 'Makefile', 'foo.c', 'bar.py', 'spam.c', 'spam.h' ]
+>>> [name for name in filenames if name.endswith(('.c', '.h')) ]
+['foo.c', 'spam.c', 'spam.h'
+>>> any(name.endswith('.py') for name in filenames)
+True
+>>> if any(name.endswith(('.c', '.h')) for name in os.listdir('.')):
+True
+```
+
+[关于 any](./python.md#any-与-all)
+
+`str.startswith()` 或 `str.endswith()` 方法参数必须是一个 `str` 或 `tuple`
+
+如果要传入一个 `list` 或者 `set` 类型的选择项， 要先调用 `tuple()` 将其转换为元组类型
+
+```python
+>>> choices = ['http:', 'ftp:']
+>>> url = 'http://www.python.org'
+>>> url.startswith(choices)
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+TypeError: startswith first arg must be str or a tuple of str, not list
+>>> url.startswith(tuple(choices))
+True
+```
+
+以上方法也可用切片或正则表达式实现
+
+### 2.3 用Shell通配符匹配字符串
+
+[关于 shell 通配符](../Linux/unix_shell.md#通配符)
+
+使用 `fnmatch` 模块的 `fnmatch()` 和 `fnmatchcase()` 实现使用 `Unix Shell` 中常用的通配符匹配字符串效果
+
+```python
+>>> from fnmatch import fnmatch, fnmatchcase
+>>> fnmatch('foo.txt', '*.txt')
+True
+>>> fnmatch('foo.txt', '?oo.txt')
+True
+>>> fnmatch('Dat45.csv', 'Dat[0-9]*')
+True
+>>> names = ['Dat1.csv', 'Dat2.csv', 'config.ini', 'foo.py']
+>>> [name for name in names if fnmatch(name, 'Dat*.csv')]
+['Dat1.csv', 'Dat2.csv']
+```
+
+`fnmatch()` 函数使用底层操作系统的大小写敏感规则(不同的系统是不一样的)来匹配模式
+
+```python
+>>> # On OS X (Mac)
+>>> fnmatch('foo.txt', '*.TXT')
+False
+>>> # On Windows
+>>> fnmatch('foo.txt', '*.TXT')
+True
+```
+
+使用 `fnmatchcase()` 则完全大小写敏感
+
+```python
+>>> fnmatchcase('foo.txt', '*.TXT')
+False
+```
+
+`fnmatch()` 函数匹配能力介于简单的字符串方法和强大的正则表达式之间
