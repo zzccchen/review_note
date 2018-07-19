@@ -80,7 +80,42 @@ len((1, 2, 3))  # 计算元素个数 3
 
 ---
 
-## 转义字符
+## 字符串
+
+### 字符串函数
+
+#### str.startswith 与 str.endswith
+
+[参见 字符串开头或结尾匹配](./python3_cookbook_note.md#2.2-字符串开头或结尾匹配)
+
+---
+
+#### str.find
+
+基本语法：
+
+```python
+str.find(str, beg=0, end=len(string))
+```
+
+`find()` 方法检测字符串中是否包含子字符串 str
+
+如果指定 `beg`（开始）和 `end`（结束）范围，则检查是否包含在指定范围内
+
+如果包含指定索引值，返回的是索引值在字符串中的起始位置，否则返回 `-1`
+
+```python
+str1 = "Runoob example....wow!!!"
+str2 = "exam";
+
+print (str1.find(str2))  # 输出 7
+print (str1.find(str2, 5))  # 输出 7
+print (str1.find(str2, 10))  # 输出 -1
+```
+
+---
+
+### 转义字符
 
 **`!` 只在fromat中有用**
 
@@ -92,7 +127,7 @@ print('hello, {!s}'.format('123'))
 # 只有这两种能输出 hello, 123
 ```
 
-### %r 或 !r
+#### %r 或 !r
 
 `%r` 或 `!r` 用于直接反应对象本体，即调用对象的 `__repr()__` 方法
 
@@ -108,9 +143,10 @@ print('hello, {!r}'.format('123'))
 
 ---
 
-## 正则表达式
+### 正则表达式
 
 *TODO: http://www.runoob.com/regexp/regexp-syntax.html*
+*TODO: http://python3-cookbook.readthedocs.io/zh_CN/latest/c02/p04_match_and_search_text.html*
 
 ---
 

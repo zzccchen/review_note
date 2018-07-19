@@ -837,3 +837,11 @@ False
 ```
 
 `fnmatch()` 函数匹配能力介于简单的字符串方法和强大的正则表达式之间
+
+### 2.4 字符串匹配和搜索
+
+* 使用 `str.startswith()` 或 `str.endswith()` [更多](#2.2-字符串开头或结尾匹配)
+
+* 使用 `str.find()` [更多](./python.md#str.find)
+
+* 使用正则表达式 [更多](./python.md#正则表达式)
