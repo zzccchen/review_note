@@ -504,6 +504,27 @@ min((), 0)  # 报错 TypeError: unorderable types: int() < tuple()
 
 ---
 
+### 无穷数
+
+```python
+float("inf"), float("-inf")  # 分别表示正负无穷
+
+>>> 1 + float('inf')
+inf
+>>> 2 * float('inf')
+inf
+
+>>> 0 * float("inf")
+nan  # not-a-number (NaN)
+
+>>> 889 / float('inf')
+0.0
+>>> float('inf')/float('inf')
+nan
+```
+
+---
+
 ### defaultdict
 
 `defaultdict` 类的初始化函数接受一个类型作为参数，当所访问的键不存在的时候，可以实例化一个值作为默认值
