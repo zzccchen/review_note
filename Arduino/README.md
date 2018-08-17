@@ -9,6 +9,8 @@
 开发板 | Arduino UNO R3
 拓展板 | Arduino sensor sheld V5 改
 
+![拓展板功能图](./image/Arduino-Sensor-Shield-v5.0-Functional-Diagram.jpg)
+
 ## 点亮你的流水灯
 
 ```c
@@ -30,28 +32,28 @@ void setup()
 void loop()
 {
   // 亮 灭 灭
-  digitalWrite(PIN_LED1, HIGH); // 点亮LED1
-  digitalWrite(PIN_LED2, LOW);  // 熄灭LED2
-  digitalWrite(PIN_LED3, LOW);  // 熄灭LED3
-  delay(500);                   // 持续500ms
+  digitalWrite(PIN_LED1, HIGH); // 点亮 LED1
+  digitalWrite(PIN_LED2, LOW);  // 熄灭 LED2
+  digitalWrite(PIN_LED3, LOW);  // 熄灭 LED3
+  delay(500);                   // 持续 500ms
 
   // 灭 亮 灭
-  digitalWrite(PIN_LED1, LOW);  // 熄灭LED1
-  digitalWrite(PIN_LED2, HIGH); // 点亮LED2
-  digitalWrite(PIN_LED3, LOW);  // 熄灭LED3
-  delay(500);                   // 持续500ms
+  digitalWrite(PIN_LED1, LOW);  // 熄灭 LED1
+  digitalWrite(PIN_LED2, HIGH); // 点亮 LED2
+  digitalWrite(PIN_LED3, LOW);  // 熄灭 LED3
+  delay(500);                   // 持续 500ms
 
   // 灭 灭 亮
-  digitalWrite(PIN_LED1, LOW);  // 熄灭LED1
-  digitalWrite(PIN_LED2, LOW);  // 熄灭LED2
-  digitalWrite(PIN_LED3, HIGH); // 点亮LED3
-  delay(500);                   // 持续500ms
+  digitalWrite(PIN_LED1, LOW);  // 熄灭 LED1
+  digitalWrite(PIN_LED2, LOW);  // 熄灭 LED2
+  digitalWrite(PIN_LED3, HIGH); // 点亮 LED3
+  delay(500);                   // 持续 500ms
 }
 ```
 
 说明：
 
-1. Arduino 板子的 1、2 引脚默认分别为硬串口的 `Rx` 和 `Tx` 引脚，自带 5v 电压
+1. Arduino 板子的 1、2 引脚默认分别为硬串口的 `RX` 和 `TX` 引脚，自带 5v 电压
 
    如果外设中使用到硬串口，则会使用到该引脚
 
@@ -69,7 +71,7 @@ void loop()
 
    此时对应的引脚需配置为输出模式
 
-   Arduino 中输出的低电平 ( `LOW` ) 为0V，输出的高电平 ( `HIGH` ) 为当前Arduino的工作电压（在 UNO R3 上为 5v）
+   Arduino 中输出的低电平（`LOW`）为 0V，输出的高电平（`HIGH`）为当前 Arduino 的工作电压（在 UNO R3 上为 5v）
 
 4. 可以用 ```int value = digitalRead(pin);``` 读取引脚外部输入的数字信号
 
@@ -113,17 +115,17 @@ void loop()
 
    而当使用 `write()` 函数时，Arduino 发送的是数值本身。但是串口监视器接收到数据后，会将数值当做 ASCII 码而显示其对应的字符
 
-3. 上文代码中的 `println()` 为 `print()` 后并添加换行
+3. 上文代码中的 `println()` 效果为 `print()` 后并添加换行
 
 更多用法请参考相关教程，部分必须用法在后文也会提及：
 
 [print() 和 write() 输出方式的差异](https://www.cnblogs.com/fqhy/p/7966169.html)
 
-[Arduino - 串口操作函数与示例代码大全（推荐看）](https://blog.csdn.net/iracer/article/details/50334041)
+[Arduino - 串口操作函数与示例代码大全（推荐阅读）](https://blog.csdn.net/iracer/article/details/50334041)
 
 ### 软串口
 
-软串口在实际使用中不推荐使用，详细原因在[遇到的坑](./遇到的坑.md#3)中提及
+软串口在实际使用中不推荐使用，详细原因在 [遇到的坑](./遇到的坑.md#3) 中提及
 
 更多用法请参考相关教程：
 
@@ -131,4 +133,4 @@ void loop()
 
 ## 进阶教程
 
-建议食用顺序：`本Readme` -> `各模块例程/IC卡`
+建议食用顺序：`本README` -> [`各模块例程/IC卡`](./各模块例程/IC卡/README.md)
