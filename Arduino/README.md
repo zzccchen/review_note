@@ -9,7 +9,7 @@
 开发板 | Arduino UNO R3
 拓展板 | Arduino sensor sheld V5 改
 
-![拓展板功能图](./image/Arduino-Sensor-Shield-v5.0-Functional-Diagram.jpg)
+![拓展板功能图](./image/Arduino_Sensor_Shield_v5.0_Functional_Diagram.jpg)
 
 ## 点亮你的流水灯
 
