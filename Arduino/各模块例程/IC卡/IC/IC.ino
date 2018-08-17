@@ -2,6 +2,7 @@
 #include <RFID.h>
 
 RFID rfid(10,5); // 引脚接法见README
+
 void setup()
 {
   Serial.begin(9600);
