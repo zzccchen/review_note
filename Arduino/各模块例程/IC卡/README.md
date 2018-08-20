@@ -4,7 +4,7 @@
 
 ## 接线方式
 
- arduino 引脚 | RFID 模块引脚
+ Arduino 引脚 | RFID 模块引脚
 -------------|-------------
  D5          | RST
  D10         | SDA
