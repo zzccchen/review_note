@@ -1,0 +1,4 @@
+--cpu Cortex-M3 ".\obj\stm32f10x.o" ".\obj\main.o" ".\obj\sys.o" --strict --scatter ".\Obj\LED.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\List\LED.map" -o ".\Obj\LED.axf"

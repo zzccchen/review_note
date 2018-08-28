@@ -1,0 +1,14 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\YYcc\Desktop\stm32\3.Wave(b)\demo.uvproj
+Project File Date:  07/03/2018
+
+<h2>Output:</h2>
+Build target 'Target 1'
+linking...
+Program Size: Code=9336 RO-data=472 RW-data=96 ZI-data=1048  
+FromELF: creating hex file...
+"demo.axf" - 0 Error(s), 0 Warning(s).
