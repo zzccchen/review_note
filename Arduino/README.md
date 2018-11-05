@@ -1,6 +1,6 @@
 # Arduino
 
-参加教育机器人大赛弄的 `Arduino`，把用到的坑和相关库用法记下吧
+参加教育机器人大赛弄的基于 `Arduino` 的机器人群舞蹈，把用到的坑和相关库用法记下吧
 
 ## 赛后感悟-2018/11/4-5
 
@@ -36,10 +36,16 @@
 
 硬件 | 名称
 -----|-------
-开发板 | Arduino UNO R3
-拓展板 | Arduino sensor sheld V5 改
+开发板 | Arduino/Genuino UNO R3
+开发板 | Arduino/Genuino Mega 2560
+开发板 | Arduino Pro Mini Atmega328P(5V, 16MHz)
+扩展板 | Arduino sensor sheld V5
+扩展板 | Arduino MEGA Sensor Shield
 
-![拓展板功能图](./image/Arduino_Sensor_Shield_v5.0_Functional_Diagram.jpg)
+![UNO 扩展板功能图](./image/Arduino_Sensor_Shield_v5.0_Functional_Diagram.jpg)
+![Mega 扩展板功能图](./image/Arduino_MEGA_Sensor_Shield.jpg)
+
+注：*Mega 包含四路硬串口，分别是 0-1，18-19，16-17，14-15。*
 
 ## 点亮你的流水灯
 
@@ -169,4 +175,4 @@ void loop()
 -> [各模块例程 / IC 卡](./各模块例程/IC卡/README.md)
 -> [各模块例程 / 无线通信模块](./各模块例程/无线通信模块/README.md)
 -> [各模块例程 / 舵机 / 180° 舵机](./各模块例程/舵机/180°舵机/README.md)
--> [FastLed 库]("http://www.taichi-maker.com/homepage/reference-index/arduino-library-index/fastled-library/#functions")
+-> [FastLed 库](http://www.taichi-maker.com/homepage/reference-index/arduino-library-index/fastled-library/#functions)
