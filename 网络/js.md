@@ -709,3 +709,149 @@ document.getElementById("image").src="landscape.jpg";
 document.getElementById(id).style.property="新样式";
 document.getElementById("p2").style.color="blue";
 ```
+
+### HTML 事件
+
+```js
+<script>
+document.getElementById("myBtn").onclick=function(){displayDate()};
+</script>
+```
+
+`onload` 和 `onunload` 事件会在用户进入或离开页面时被触发
+
+```js
+<script>
+<body onload="checkCookies()">
+</script>
+```
+
+### DOM EventListener
+
+`addEventListener()` 方法用于向指定元素添加事件句柄。
+
+`addEventListener()` 方法添加的事件句柄不会覆盖已存在的事件句柄。
+
+可以向一个元素添加多个事件句柄。
+
+可以向同个元素添加多个同类型的事件句柄，如：两个 `"click"` 事件。
+
+注意:*不要使用 "on" 前缀。例如，使用 `"click"`，而不是使用 `"onclick"`。*
+
+可以向任何 DOM 对象添加事件监听，不仅仅是 HTML 元素。如： window 对象。
+
+可以使用 `removeEventListener()` 方法来移除事件的监听。
+
+```js
+element.addEventListener(event, function, useCapture);
+```
+
+第一个参数是事件的类型 (如 "click" 或 "mousedown").
+
+第二个参数是事件触发后调用的函数。
+
+第三个参数是个布尔值用于描述事件是冒泡还是捕获。该参数是可选的。
+
+> 事件传递有两种方式：冒泡与捕获。
+>
+> 在 冒泡 中，内部元素的事件会先被触发，然后再触发外部元素
+>
+> 在 捕获 中，外部元素的事件会先被触发，然后才会触发内部元素的事件
+>
+> 默认值为 `false`，即冒泡传递，当值为 `true` 时, 事件使用捕获传递。
+
+当传递参数值时，使用"匿名函数"调用带参数的函数：
+
+```js
+element.addEventListener("click", function(){ myFunction(p1, p2); });
+```
+
+### DOM 元素
+
+#### 创建新的 HTML 元素
+
+`appendChild()` 用于添加新元素到尾部
+
+```js
+<div id="div1">
+<p id="p1">这是一个段落。</p>
+<p id="p2">这是另外一个段落。</p>
+</div>
+
+<script>
+var para = document.createElement("p");
+var node = document.createTextNode("这是一个新的段落。");
+para.appendChild(node);
+
+var element = document.getElementById("div1");
+element.appendChild(para);
+</script>
+```
+
+`insertBefore()` 将新元素添加到开始位置
+
+```js
+<div id="div1">
+<p id="p1">这是一个段落。</p>
+<p id="p2">这是另外一个段落。</p>
+</div>
+
+<script>
+var para = document.createElement("p");
+var node = document.createTextNode("这是一个新的段落。");
+para.appendChild(node);
+
+var element = document.getElementById("div1");
+var child = document.getElementById("p1");
+element.insertBefore(para, child);
+</script>
+```
+
+#### 移除已存在的元素
+
+```js
+<div id="div1">
+<p id="p1">这是一个段落。</p>
+<p id="p2">这是另外一个段落。</p>
+</div>
+
+<script>
+var parent = document.getElementById("div1");
+var child = document.getElementById("p1");
+parent.removeChild(child);
+</script>
+```
+
+#### 替换 HTML 元素
+
+```js
+<div id="div1">
+<p id="p1">这是一个段落。</p>
+<p id="p2">这是另外一个段落。</p>
+</div>
+
+<script>
+var para = document.createElement("p");
+var node = document.createTextNode("这是一个新的段落。");
+para.appendChild(node);
+
+var parent = document.getElementById("div1");
+var child = document.getElementById("p1");
+parent.replaceChild(para, child);
+</script>
+```
+
+### DOM 集合
+
+`getElementsByTagName()` 方法返回 `HTMLCollection` 对象。
+
+HTMLCollection 对象类似 HTML 元素的一个数组。
+
+```js
+var x = document.getElementsByTagName("p"); // 获取文档所有的 <p> 元素
+
+y = x[1]; // 通过索引访问
+
+var myCollection = document.getElementsByTagName("p");
+document.getElementById("demo").innerHTML = myCollection.length; // length 属性定义了集合中元素的数量
+```
