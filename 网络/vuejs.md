@@ -612,6 +612,71 @@ new Vue({
 <input v-model.trim="msg">
 ```
 
+## template
+
+**第一个** `<template></template>` 下面必须**只有一个根元素**（不包括也不是 `template` 本身）,可以使用一个容器元素包裹住，如：
+
+```html
+<!-- 错 -->
+<template>
+    <template>
+    </template>
+</template>
+
+<!-- 错 -->
+<template>
+    <div></div>
+    <div></div>
+</template>
+
+<!-- 对 -->
+<template>
+    <div></div>
+</template>
+```
+
+### 单文件组件
+
+文件扩展名为 `.vue`
+
+```html
+<template>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+    <h2>Essential Links</h2>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App'
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+</style>
+```
+
 ## 组件
 
 注册一个全局组件
