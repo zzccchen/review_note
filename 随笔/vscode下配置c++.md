@@ -4,7 +4,7 @@
 
 * 下载 [离线版](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/sjlj/x86_64-8.1.0-release-posix-sjlj-rt_v6-rev0.7z/download) 
 
-* 将解压后的文件夹下的 bin 文件夹路径添加到环境变量
+* 将解压后的文件夹下的 bin 文件夹路径添加到环境变量 `Path`
 
 其他说明：
 
@@ -29,5 +29,7 @@ Exception：异常处理模型
 > * sjlj：稳定性好
 
 ## 安装 Code Runner 插件
+
+vscode 应用商店中搜索 [`Code Runner`](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner#review-details) 插件，安装
 
 完事~
