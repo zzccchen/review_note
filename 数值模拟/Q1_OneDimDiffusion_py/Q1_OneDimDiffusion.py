@@ -24,12 +24,8 @@ if __name__ == "__main__":
     alpha /= (delta_x * delta_x / delta_t)
 
     maxLoops = 300000
-    maxFrame = 100
-    loops = 0
-    frame = 0
 
     print("maxLoops ", maxLoops)
-    print("maxFrame ", maxFrame)
     print("Well done! Initialized successfully.")
     print("Now, the main loops are starting... ")
 
