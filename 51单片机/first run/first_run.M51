@@ -1,0 +1,332 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        11/09/2017  18:29:13  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE first_run.obj TO first_run RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  first_run.obj (FIRST_RUN)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  first_run (FIRST_RUN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            REG     0008H     0008H     ABSOLUTE     "REG BANK 1"
+            DATA    0010H     0008H     UNIT         ?DT?FIRST_RUN
+                    0018H     0008H                  *** GAP ***
+            BIT     0020H.0   0000H.2   UNIT         ?BI?FIRST_RUN
+                    0020H.2   0000H.6                *** GAP ***
+            IDATA   0021H     0010H     UNIT         ?ID?FIRST_RUN
+            IDATA   0031H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     001EH     UNIT         ?PR?COM_INITIALIZE?FIRST_RUN
+                    0021H     0002H                  *** GAP ***
+            CODE    0023H     0003H     ABSOLUTE     
+            CODE    0026H     008CH     UNIT         ?C_C51STARTUP
+            CODE    00B2H     005EH     UNIT         ?PR?MAIN?FIRST_RUN
+            CODE    0110H     0055H     UNIT         ?C?LIB_CODE
+            CODE    0165H     004DH     UNIT         ?PR?COM_ISR?FIRST_RUN
+            CODE    01B2H     0038H     UNIT         ?PR?_DELAY_NMS?FIRST_RUN
+            CODE    01EAH     002AH     UNIT         ?PR?_R_SPEED_US?FIRST_RUN
+            CODE    0214H     0029H     UNIT         ?PR?_L_SPEED_US?FIRST_RUN
+            CODE    023DH     0026H     UNIT         ?PR?_PUTBUF?FIRST_RUN
+            CODE    0263H     0017H     UNIT         ?PR?_GETKEY?FIRST_RUN
+            CODE    027AH     0016H     UNIT         ?PR?_PUTCHAR?FIRST_RUN
+            CODE    0290H     0011H     UNIT         ?PR?_DELAY_NUS?FIRST_RUN
+            CODE    02A1H     0009H     UNIT         ?C_INITSEG
+            CODE    02AAH     0006H     UNIT         ?PR?UART_INIT?FIRST_RUN
+
+
+
+OVERLAY MAP OF MODULE:   first_run (FIRST_RUN)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/09/2017  18:29:13  PAGE 2
+
+
+  +--> ?PR?MAIN?FIRST_RUN
+  +--> ?C_INITSEG
+
+?PR?MAIN?FIRST_RUN
+  +--> ?PR?UART_INIT?FIRST_RUN
+  +--> ?PR?_L_SPEED_US?FIRST_RUN
+  +--> ?PR?_DELAY_NUS?FIRST_RUN
+  +--> ?PR?_DELAY_NMS?FIRST_RUN
+
+?PR?UART_INIT?FIRST_RUN
+  +--> ?PR?COM_INITIALIZE?FIRST_RUN
+
+?PR?_DELAY_NMS?FIRST_RUN
+  +--> ?PR?_L_SPEED_US?FIRST_RUN
+  +--> ?PR?_DELAY_NUS?FIRST_RUN
+  +--> ?PR?_R_SPEED_US?FIRST_RUN
+
+
+
+SYMBOL TABLE OF MODULE:  first_run (FIRST_RUN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        FIRST_RUN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  B:00A8H.7       PUBLIC        EA
+  C:0214H         PUBLIC        _L_speed_us
+  C:01EAH         PUBLIC        _R_speed_us
+  B:0090H.0       PUBLIC        P1_0
+  B:0090H.1       PUBLIC        P1_1
+  I:0021H         PUBLIC        inbuf
+  B:00A8H.4       PUBLIC        ES
+  I:0029H         PUBLIC        outbuf
+  C:023DH         PUBLIC        _putbuf
+  D:0010H         PUBLIC        istart
+  B:0098H.0       PUBLIC        RI
+  B:0098H.1       PUBLIC        TI
+  D:0011H         PUBLIC        ostart
+  D:0012H         PUBLIC        iend
+  C:00B2H         PUBLIC        main
+  D:0013H         PUBLIC        oend
+  B:0020H.0       PUBLIC        sendactive
+  D:0099H         PUBLIC        SBUF
+  D:0098H         PUBLIC        SCON
+  C:02AAH         PUBLIC        uart_Init
+  D:0089H         PUBLIC        TMOD
+  C:01CEH         PUBLIC        _delay_nms
+  C:0290H         PUBLIC        _delay_nus
+  D:008DH         PUBLIC        TH1
+  D:008BH         PUBLIC        TL1
+  B:0088H.6       PUBLIC        TR1
+  C:0003H         PUBLIC        com_initialize
+  B:0020H.1       PUBLIC        sendfull
+  C:0263H         PUBLIC        _getkey
+  D:0014H         PUBLIC        L_zero
+  C:0165H         SYMBOL        com_isr
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/09/2017  18:29:13  PAGE 3
+
+
+  D:0016H         PUBLIC        R_zero
+  C:027AH         PUBLIC        _putchar
+  -------         PROC          _DELAY_NUS
+  D:0006H         SYMBOL        i
+  C:0290H         LINE#         8
+  C:0290H         LINE#         9
+  C:0290H         LINE#         10
+  C:0297H         LINE#         11
+  C:02A0H         LINE#         12
+  -------         ENDPROC       _DELAY_NUS
+  C:01C2H         SYMBOL        L?0054
+  -------         PROC          L?0053
+  -------         ENDPROC       L?0053
+  C:01C2H         SYMBOL        L?0054
+  -------         PROC          _DELAY_NMS
+  D:0002H         SYMBOL        n
+  C:01CEH         LINE#         14
+  C:01D2H         LINE#         15
+  C:01D2H         LINE#         16
+  C:01D7H         LINE#         17
+  C:01E0H         LINE#         18
+  C:01E9H         LINE#         19
+  -------         ENDPROC       _DELAY_NMS
+  -------         PROC          COM_ISR
+  -------         DO            
+  D:000FH         SYMBOL        c
+  -------         ENDDO         
+  C:0165H         LINE#         22
+  C:016CH         LINE#         26
+  C:016FH         LINE#         27
+  C:016FH         LINE#         28
+  C:0171H         LINE#         29
+  C:0173H         LINE#         30
+  C:0183H         LINE#         31
+  C:0183H         LINE#         32
+  C:018FH         LINE#         33
+  C:018FH         LINE#         34
+  C:018FH         LINE#         37
+  C:0192H         LINE#         38
+  C:0192H         LINE#         39
+  C:0194H         LINE#         40
+  C:019AH         LINE#         41
+  C:019AH         LINE#         42
+  C:01A7H         LINE#         43
+  C:01A9H         LINE#         44
+  C:01ABH         LINE#         46
+  C:01ABH         LINE#         47
+  C:01ADH         LINE#         48
+  C:01ADH         LINE#         49
+  C:01ADH         LINE#         50
+  -------         ENDPROC       COM_ISR
+  -------         PROC          _PUTBUF
+  D:0007H         SYMBOL        c
+  C:023DH         LINE#         53
+  C:023DH         LINE#         54
+  C:023DH         LINE#         55
+  C:0240H         LINE#         56
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/09/2017  18:29:13  PAGE 4
+
+
+  C:0240H         LINE#         57
+  C:0243H         LINE#         58
+  C:0243H         LINE#         59
+  C:0245H         LINE#         60
+  C:0247H         LINE#         61
+  C:0248H         LINE#         63
+  C:0248H         LINE#         64
+  C:024AH         LINE#         65
+  C:0256H         LINE#         66
+  C:025EH         LINE#         67
+  C:0260H         LINE#         68
+  C:0262H         LINE#         69
+  C:0262H         LINE#         70
+  C:0262H         LINE#         71
+  -------         ENDPROC       _PUTBUF
+  -------         PROC          _PUTCHAR
+  D:0005H         SYMBOL        c
+  C:027AH         LINE#         76
+  C:027CH         LINE#         77
+  C:027CH         LINE#         78
+  C:027FH         LINE#         79
+  C:027FH         LINE#         80
+  C:0282H         LINE#         81
+  C:0287H         LINE#         82
+  C:0287H         LINE#         83
+  C:028AH         LINE#         84
+  C:028FH         LINE#         85
+  C:028FH         LINE#         86
+  -------         ENDPROC       _PUTCHAR
+  -------         PROC          _GETKEY
+  -------         DO            
+  D:0007H         SYMBOL        c
+  -------         ENDDO         
+  C:0263H         LINE#         91
+  C:0263H         LINE#         92
+  C:0263H         LINE#         94
+  C:0269H         LINE#         95
+  C:0269H         LINE#         96
+  C:026BH         LINE#         97
+  C:0277H         LINE#         98
+  C:0279H         LINE#         99
+  C:0279H         LINE#         100
+  -------         ENDPROC       _GETKEY
+  -------         PROC          COM_INITIALIZE
+  C:0003H         LINE#         103
+  C:0003H         LINE#         104
+  C:0003H         LINE#         105
+  C:0006H         LINE#         106
+  C:0008H         LINE#         107
+  C:000AH         LINE#         108
+  C:000CH         LINE#         109
+  C:000EH         LINE#         110
+  C:0010H         LINE#         112
+  C:0013H         LINE#         113
+  C:0016H         LINE#         114
+  C:0019H         LINE#         115
+  C:001CH         LINE#         116
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/09/2017  18:29:13  PAGE 5
+
+
+  C:001EH         LINE#         117
+  C:0020H         LINE#         118
+  -------         ENDPROC       COM_INITIALIZE
+  -------         PROC          UART_INIT
+  C:02AAH         LINE#         120
+  C:02AAH         LINE#         121
+  C:02AAH         LINE#         122
+  C:02ADH         LINE#         123
+  C:02AFH         LINE#         124
+  -------         ENDPROC       UART_INIT
+  -------         PROC          _L_SPEED_US
+  D:0006H         SYMBOL        ls
+  C:0214H         LINE#         7
+  C:0214H         LINE#         8
+  C:0214H         LINE#         9
+  C:0224H         LINE#         10
+  C:0234H         LINE#         11
+  C:023CH         LINE#         12
+  -------         ENDPROC       _L_SPEED_US
+  -------         PROC          _R_SPEED_US
+  D:0006H         SYMBOL        rs
+  C:01EAH         LINE#         14
+  C:01EAH         LINE#         15
+  C:01EAH         LINE#         16
+  C:01FAH         LINE#         17
+  C:020AH         LINE#         18
+  C:0213H         LINE#         19
+  -------         ENDPROC       _R_SPEED_US
+  -------         PROC          MAIN
+  -------         DO            
+  D:0082H         SYMBOL        sp
+  D:0082H         SYMBOL        time_l
+  D:0082H         SYMBOL        time_c
+  -------         ENDDO         
+  C:00B2H         LINE#         20
+  C:00B2H         LINE#         21
+  C:00B2H         LINE#         23
+  C:00B5H         LINE#         25
+  C:00B5H         LINE#         26
+  C:00C5H         LINE#         27
+  C:00C5H         LINE#         28
+  C:00C7H         LINE#         29
+  C:00D1H         LINE#         30
+  C:00D3H         LINE#         32
+  C:00D5H         LINE#         33
+  C:00D9H         LINE#         34
+  C:00D9H         LINE#         36
+  C:00DCH         LINE#         37
+  C:00E9H         LINE#         38
+  C:00ECH         LINE#         39
+  C:00ECH         LINE#         40
+  C:00EEH         LINE#         41
+  C:00F0H         LINE#         42
+  C:00F0H         LINE#         44
+  C:00F0H         LINE#         45
+  C:00F0H         LINE#         46
+  C:00F0H         LINE#         48
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/09/2017  18:29:13  PAGE 6
+
+
+  C:00F3H         LINE#         49
+  C:00FCH         LINE#         50
+  C:00FFH         LINE#         51
+  C:00FFH         LINE#         52
+  C:0101H         LINE#         53
+  C:0103H         LINE#         54
+  C:0103H         LINE#         56
+  C:0103H         LINE#         57
+  C:0103H         LINE#         58
+  C:0103H         LINE#         60
+  C:0106H         LINE#         61
+  C:010FH         LINE#         62
+  C:010FH         LINE#         63
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        FIRST_RUN
+
+  -------         MODULE        ?C?UIDIV
+  C:0110H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PUTCHAR?FIRST_RUN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_GETKEY?FIRST_RUN
+
+Program Size: data=41.2 xdata=0 code=686
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)
