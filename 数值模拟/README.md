@@ -8,7 +8,7 @@
 
 * [Q1_OneDimDiffusion](https://nbviewer.jupyter.org/github/zzccchen/review_note/blob/master/数值模拟/Q1_OneDimDiffusion/Q1_Answer.ipynb)
 
-* [Q1_OneDimDiffusion](https://nbviewer.jupyter.org/github/zzccchen/review_note/blob/master/数值模拟/Q2_OneDimDiffusion/Q2_Answer.ipynb)
+* [Q2_OneDimDiffusion](https://nbviewer.jupyter.org/github/zzccchen/review_note/blob/master/数值模拟/Q2_OneDimDiffusion/Q2_Answer.ipynb)
 
 * [Q3_OneDimDiffusion](https://nbviewer.jupyter.org/github/zzccchen/review_note/blob/master/数值模拟/Q3_OneDimDiffusion/Q3_Answer.ipynb)
 
