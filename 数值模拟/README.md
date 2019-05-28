@@ -19,3 +19,5 @@
 * [Q5_TwoDimDiffusion](https://nbviewer.jupyter.org/github/zzccchen/review_note/blob/master/数值模拟/Q5_TwoDimDiffusion/Q5_Answer.ipynb)
 
 * [Q6_TwoDimDiffusion](https://nbviewer.jupyter.org/github/zzccchen/review_note/blob/master/数值模拟/Q6_TwoDimDiffusion/Q6_Answer.ipynb)
+
+* [Q7_LBflowsBGK](https://nbviewer.jupyter.org/github/zzccchen/review_note/blob/master/数值模拟/Q7_LBflowsBGK/Q7_LBflowsBGK.ipynb)
