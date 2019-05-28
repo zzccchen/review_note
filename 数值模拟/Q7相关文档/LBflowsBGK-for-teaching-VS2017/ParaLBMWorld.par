@@ -1,0 +1,3 @@
+Head line 1: parameters of the LB world	
+1.0				! line 1.1 is  cLB (lattice speed)
+1.85			! line 1.5 is  omega  (relaxation parameter) 0.5

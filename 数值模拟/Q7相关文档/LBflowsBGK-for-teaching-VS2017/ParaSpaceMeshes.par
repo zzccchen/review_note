@@ -1,0 +1,6 @@
+Head line 1: parameters of the Real world	
+0.0120			! line 1.1 is lengthx
+0.0150			! line 1.2 is lengthy
+Head line 2: parameters for the meshes
+120				! line 2.1 is Nx
+150				! line 2.2 is Ny

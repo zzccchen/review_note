@@ -1,0 +1,9 @@
+Head line 1: space and time steps
+0.0				!line 1.1: delta_x
+0.0				!line 1.2: delta_t
+Head line 2: initial condition
+0.00			!line 2.1: u_0
+0.00			!line 2.2: v_0
+Head line 3: boundary condition
+3				!line 3.1: bdyType. 0:全周期; 1:全固壁; 2:下入上出左右周期; 3:下入上出左右固壁; 
+0.01			!line 3.2: u_in

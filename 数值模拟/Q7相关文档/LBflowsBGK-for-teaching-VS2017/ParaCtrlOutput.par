@@ -1,0 +1,4 @@
+Head line 1: control the iteration and output
+30000			! line 1.1 is iterMax  (Max number of iterations)
+300			! line 1.2 is frameMax (Max numbers of frames)
+

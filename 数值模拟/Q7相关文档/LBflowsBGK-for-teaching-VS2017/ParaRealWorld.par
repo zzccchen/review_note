@@ -1,0 +1,3 @@
+Head line 1: physical parameters
+1.0	      		!density (density per node)
+1.0e-6			!dynamic viscocity
