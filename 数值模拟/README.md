@@ -21,3 +21,5 @@
 * [Q6_TwoDimDiffusion](https://nbviewer.jupyter.org/github/zzccchen/review_note/blob/master/数值模拟/Q6_TwoDimDiffusion/Q6_Answer.ipynb)
 
 * [Q7_LBflowsBGK](https://nbviewer.jupyter.org/github/zzccchen/review_note/blob/master/数值模拟/Q7_LBflowsBGK/Q7_LBflowsBGK.ipynb)
+
+* [Q8_KarmanVortexStreet](https://nbviewer.jupyter.org/github/zzccchen/review_note/blob/master/数值模拟/Q8_KarmanVortexStreet/Q8_KarmanVortexStreet.ipynb)
