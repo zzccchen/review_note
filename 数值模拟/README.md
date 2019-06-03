@@ -1,6 +1,6 @@
 # LBM_pythonic
 
-:eyes: 本仓库存放数值模拟课程作业
+:information_desk_person: 本仓库存放数值模拟课程作业
 
 :grey_exclamation: 其主要内容为基于格子玻尔兹曼法的数值模拟及其后处理
 
