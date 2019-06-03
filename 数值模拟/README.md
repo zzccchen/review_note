@@ -1,10 +1,10 @@
 # LBM_pythonic
 
-本仓库存放数值模拟课程作业
+:eyes: 本仓库存放数值模拟课程作业
 
-其主要内容为基于格子玻尔兹曼法的数值模拟及其后处理
+:grey_exclamation: 其主要内容为基于格子玻尔兹曼法的数值模拟及其后处理
 
-具体包括：
+:speech_balloon: 具体包括：
 
 * 基于格子玻尔兹曼法的 **温度场** 模拟
   * 一维温度传导（Q1-3）
@@ -13,11 +13,11 @@
 * 基于格子玻尔兹曼法的 **二维流场** 模拟（Q7-8）
   * **卡门涡街** 现象模拟（Q8）
 
-数据后处理绘制使用到了：`matplotlib`，`plotly`，`plotly_express` 库
+:chart_with_upwards_trend: 数据后处理绘制使用到了：`matplotlib`，`plotly`，`plotly_express` 库
 
-代码语言：`Python3`
+:scroll: 代码语言：`Python3`
 
-## 2. [在线访问](https://nbviewer.jupyter.org/github/zzccchen/review_note/tree/master/数值模拟)
+## 2. [在线访问](https://nbviewer.jupyter.org/github/zzccchen/review_note/tree/master/数值模拟)（建议）
 
 * [Q1-6 题目](https://github.com/zzccchen/review_note/blob/master/%E6%95%B0%E5%80%BC%E6%A8%A1%E6%8B%9F/Q1-7%E7%9B%B8%E5%85%B3%E6%96%87%E6%A1%A3/2019.04.23%2B%E4%B8%8A%E6%9C%BA%E9%A2%98%E7%9B%AE%E5%8F%8A%E8%A6%81%E6%B1%82%2B-%2B%E6%B8%A9%E5%BA%A6%E5%9C%BA%E8%AE%A1%E7%AE%97.pdf)
 
@@ -68,3 +68,21 @@
 * [Q8_KarmanVortexStreet](https://nbviewer.jupyter.org/github/zzccchen/review_note/blob/master/数值模拟/Q8_KarmanVortexStreet/Q8_KarmanVortexStreet.ipynb)
 
   * 基于 `LBGK` 和 `D2Q9` 模型对二维流场的 **卡门涡街现象进行模拟**
+
+注：*关于 Q7-8 的代码参考自 `Palabos` 项目的 [`Lattice Boltzmann in various languages`](http://wiki.palabos.org/numerics:codes) 一文*
+
+## 2. 本地运行
+
+关于依赖库可以执行以下命令：
+
+```bash
+pip3 install plotly_express
+pip3 install pandas
+pip3 install numpy
+pip3 install matplotlib
+pip3 install numba
+```
+
+随后克隆此仓库到本地，使用 `Jupyter Notebook` 打开
+
+And enjoy them! :grin:
